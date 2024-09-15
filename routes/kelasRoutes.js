@@ -1,0 +1,10 @@
+const express = require('express');
+const KelasController = require('../controllers/kelasController');
+const router = express.Router();
+const verifyToken = require('../middleware/verifyToken');
+router.get('/', KelasController.getKelas);
+router.get('/:kelasId', KelasController.getKelasById);
+router.post('/', KelasController.createKelas);
+router.put('/:kelasId', KelasController.updateKelas);
+router.delete('/:kelasId', KelasController.deleteKelas);
+module.exports = router;
