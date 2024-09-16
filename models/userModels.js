@@ -9,8 +9,11 @@ const User = {
     },
     delete: (id, callback) => {
         db.query('DELETE FROM users WHERE id = ?', [id], callback);
+    },
+    changePassword : (id, password, callback) => {
+        db.query("UPDATE users SET password = ? where id = ? ", [password, id], callback);
     }
-
+ 
 };
 
 module.exports = User;

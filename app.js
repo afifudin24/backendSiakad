@@ -6,6 +6,9 @@ const guruRoutes = require('./routes/guruRoutes');
 const authRoutes = require('./routes/authRoutes');
 const kelasRoutes = require('./routes/kelasRoutes');
 const walikelasRoutes = require('./routes/walikelasRoutes');
+const mapelRoutes = require('./routes/mapelRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
 const bodyParser = require('body-parser')
 const PORT = 3000;
 const db = require('./db/config')
@@ -20,6 +23,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/guru', guruRoutes);
 app.use('/api/kelas', kelasRoutes);
 app.use('/api/walikelas', walikelasRoutes);
+app.use('/api/mapel', mapelRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/user', userRoutes);
 app.listen(PORT, () => {
    console.log(`Server is running on http://localhost:${PORT}`);
 })
