@@ -4,6 +4,7 @@ const User = require('../models/userModels');
 const Admin = require('../models/adminModels');
 const Guru = require('../models/guruModels');
 const Siswa = require('../models/siswaModel');
+const StafPembayaran = require('../models/stafPembayaranModels');
 const secretKey = '2345'; // Use a more secure key in production
 
 const getUserAccountByRole = (role, userId) => {
@@ -18,8 +19,13 @@ const getUserAccountByRole = (role, userId) => {
                 if (err) return reject(err);
                 resolve(result[0]);
             });
-        } else if (role === 4) { // Assuming role 4 is for Guru
+        } else if (role === 2) { // Assuming role 4 is for Guru
             Guru.getById(userId, (err, result) => {
+                if (err) return reject(err);
+                resolve(result[0]);
+            });
+        } else if (role === 4) { // Assuming role 4 is for Guru
+            StafPembayaran.getById(userId, (err, result) => {
                 if (err) return reject(err);
                 resolve(result[0]);
             });

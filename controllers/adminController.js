@@ -38,7 +38,8 @@ const AdminController = {
                     if (err) return res.status(500).json(err);
                     res.json({
                         response : res.status,
-                        data : user,
+                        data: user,
+                        userAccount : adminData,
                         message: 'Admin and User created successfully'
                     });
                 });
@@ -50,15 +51,35 @@ const AdminController = {
     updateAdmin : async (req, res) => {
         const data = req.body;
         const {id} = req.params;
-        try{
-            Admin.update(id, data, (err, result) => {
-                if(err) return res.status(500).json(err);
+        try {
+            Admin.getAdminById(id, (err, admin) => {
+                if (err) return res.status(500).json({ err: err });
+            
+                // Hapus gambar lama jika ada dan jika file gambar baru diupload
+                if (admin[0].gambar !== 'default.jpeg' && req.file) {
+                    const oldImagePath = path.join(__dirname, '../uploads', admin[0].gambar);
+              
+                    fs.unlink(oldImagePath, (err) => {
+                        if (err) console.error('Failed to delete old image:', err);
+                    });
+                }
+        
+                // Cek apakah ada file gambar yang diupload
+                if (req.file) {
+                    data.gambar = req.file.filename;  // Simpan nama file gambar yang diupload
+                }
+                
+                Admin.update(id, data, (err, result) => {
+                if (err) return res.status(500).json(err);
                 res.status(201).json({
-                    status : 201,
-                    data : data,
-                    message : "Successfully Updated Admin"
+                    status: 201,
+                    data: data,
+                    message: "Successfully Updated Admin"
                 });
-            })
+            });
+
+            });
+         
         }catch(err){
             console.log(er);
         }

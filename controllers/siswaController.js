@@ -1,6 +1,8 @@
 const Siswa = require('../models/siswaModel');
 const User = require('../models/userModels');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+const path = require('path');
 
 const SiswaController = {
     getAllSiswa: (req, res) => {
@@ -55,19 +57,37 @@ const SiswaController = {
     },
 
     updateSiswa: (req, res) => {
-        const { userId } = req.params;
+          const { userId } = req.params;
         const data = req.body;
-        console.log(data);
+         // Temukan data siswa yang ada, termasuk nama file gambar lama
+        Siswa.getById(userId, (err, siswa) => {
+            if (err) return res.status(500).json({ err: err });
+            
+            // Hapus gambar lama jika ada dan jika file gambar baru diupload
+            if (siswa[0].gambar !== 'default.jpeg' && req.file) {
+                const oldImagePath = path.join(__dirname, '../uploads', siswa[0].gambar);
+              
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) console.error('Failed to delete old image:', err);
+                });
+            }
         
-        Siswa.update(userId, data, (err, result) => {
-            if (err) return res.status(500).json({
-                data : data,
-                err : err
-            });
-            res.json({
-                message: 'Siswa updated successfully',
-                result: result,
-                status : 201
+            // Cek apakah ada file gambar yang diupload
+            if (req.file) {
+                data.gambar = req.file.filename;  // Simpan nama file gambar yang diupload
+            }
+            console.log(data);
+        
+            Siswa.update(userId, data, (err, result) => {
+                if (err) return res.status(500).json({
+                    data: data,
+                    err: err
+                });
+                res.json({
+                    message: 'Siswa updated successfully',
+                    result: result,
+                    status: 201
+                });
             });
         });
     },

@@ -2,7 +2,8 @@ const Guru = require('../models/guruModels');
 const User = require('../models/userModels');
 const bcrypt = require('bcryptjs');
 const db = require('../db/config');
-
+const fs = require('fs');
+const path = require('path');
 
 const GuruController = {
     getAllGuru: (req, res) => {
@@ -61,14 +62,36 @@ const GuruController = {
     updateGuru: (req, res) => {
         const { id } = req.params;
         const data = req.body;
-        console.log(data);
+        console.log(req.file);
+            // Temukan data siswa yang ada, termasuk nama file gambar lama
+        Guru.getById(id, (err, guru) => {
+            if (err) return res.status(500).json({ err: err });
+            // Hapus gambar lama jika ada dan jika file gambar baru diupload
+     
+            if (guru[0].gambar !== 'default.jpeg' && req.file) {
+                const oldImagePath = path.join(__dirname, '../uploads', guru[0].gambar);
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) console.error('Failed to delete old image:', err);
+                });
+            }
+            // Cek apakah ada file gambar yang diupload
+            if (req.file) {
+                data.gambar = req.file.filename;  // Simpan nama file gambar yang diupload
+            }
+            console.log(data);
         
-        Guru.update(id, data, (err, result) => {
-            if (err) return res.status(500).json({
-                data : data,
-                err : err
+            Guru.update(id, data, (err, result) => {
+                if (err) return res.status(500).json({
+                    data: data,
+                    err: err
+                });
+                res.status(201).json(
+                    {
+                        result: result,
+                        status : 201,
+                        message: 'Guru updated successfully'
+                    });
             });
-            res.json({ message: 'Guru updated successfully' });
         });
     },
 

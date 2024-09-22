@@ -11,7 +11,7 @@ const Guru = {
         db.query('INSERT INTO gurus SET ?', data, callback);
     },
     update: (id, data, callback) => {
-        db.query('UPDATE gurus SET ? WHERE id = ?', [data, id], callback);
+        db.query('UPDATE gurus SET ? WHERE user_id = ?', [data, id], callback);
     },
     delete: (id, callback) => {
         db.query('DELETE FROM gurus WHERE user_id = ?', [id], callback);

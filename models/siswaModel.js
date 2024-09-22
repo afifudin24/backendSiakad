@@ -5,7 +5,7 @@ const Siswa = {
         db.query('SELECT * FROM siswa', callback);
     },
     getById: (userId, callback) => {
-        db.query('SELECT * FROM siswa WHERE user_id = ?', [userId], callback);
+        db.query('SELECT * FROM siswa WHERE user_id = ? LIMIT 1', [userId], callback);
     },
     create: (data, callback) => {
         db.query('INSERT INTO siswa SET ?', data, callback);
