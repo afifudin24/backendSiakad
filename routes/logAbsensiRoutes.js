@@ -13,5 +13,5 @@ router.get(
 );
 
 router.post('/', LogAbsensiController.insertAbsensi);
-router.put('/', LogAbsensiController.updateAbsensi);
+router.put('/update', LogAbsensiController.updateAbsensi);
 module.exports = router;

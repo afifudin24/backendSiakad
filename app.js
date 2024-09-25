@@ -19,6 +19,7 @@ const tugasRoutes = require('./routes/tugasRoutes');
 const pengirimanTugasRoutes = require('./routes/pengirimanTugasRoutes');
 const ejurnalRoutes = require('./routes/ejurnalRoutes');
 const logAbsensiRoutes = require('./routes/logAbsensiRoutes');
+const logAbsensiWalkelRoutes = require('./routes/logAbsensiWalkelRoutes');
 const PORT = 3000;
 
 // Route dasar
@@ -44,6 +45,7 @@ app.use('/api/tugas', tugasRoutes);
 app.use('/api/pengirimantugas', pengirimanTugasRoutes);
 app.use('/api/ejurnal', ejurnalRoutes);
 app.use('/api/logabsensi', logAbsensiRoutes);
+app.use('/api/logabsensiwalkel', logAbsensiWalkelRoutes);
 
 // Route Static
 app.use('/uploads', express.static('uploads'));

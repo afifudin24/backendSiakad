@@ -20,7 +20,7 @@ const LogAbsensiController = {
             dataAbsen: [
               {
                 logabsensi_id: row.logabsensi_id,
-                tgl_absen: row.tgl_absen,
+                tgl_absen: new Date(row.tgl_absen).toLocaleDateString('id-ID'),
                 pertemuan_ke: row.pertemuan_ke,
                 status_absensi: row.status_absensi,
                 mengajar_id: row.mengajar_id,
@@ -50,7 +50,7 @@ const LogAbsensiController = {
           // Jika siswa sudah ada, tambahkan data absensi ke dalam array dataAbsen siswa tersebut
           acc[siswaIndex].dataAbsen.push({
             logabsensi_id: row.logabsensi_id,
-            tgl_absen: row.tgl_absen,
+            tgl_absen: new Date(row.tgl_absen).toLocaleDateString('id-ID'),
             pertemuan_ke: row.pertemuan_ke,
             status_absensi: row.status_absensi,
             mengajar_id: row.mengajar_id,
@@ -96,7 +96,7 @@ const LogAbsensiController = {
             dataAbsen: [
               {
                 logabsensi_id: row.logabsensi_id,
-                tgl_absen: row.tgl_absen,
+                tgl_absen: new Date(row.tgl_absen).toLocaleDateString('id-ID'),
                 pertemuan_ke: row.pertemuan_ke,
                 status_absensi: row.status_absensi,
                 mengajar_id: row.mengajar_id,
@@ -117,7 +117,7 @@ const LogAbsensiController = {
           // Jika siswa sudah ada, tambahkan data absensi ke dalam array dataAbsen siswa tersebut
           acc[siswaIndex].dataAbsen.push({
             logabsensi_id: row.logabsensi_id,
-            tgl_absen: row.tgl_absen,
+            tgl_absen: new Date(row.tgl_absen).toLocaleDateString('id-ID'),
             pertemuan_ke: row.pertemuan_ke,
             status_absensi: row.status_absensi,
             mengajar_id: row.mengajar_id,
@@ -154,8 +154,8 @@ const LogAbsensiController = {
   },
   updateAbsensi: (req, res) => {
     const data = req.body;
-
-    LogAbsensi.updateAbsensi(data, (err, result) => {
+    const {date} = req.params;
+    LogAbsensi.updateAbsensi(data, date, (err, result) => {
       console.log(result);
       if (err) return res.status(500).json(err);
       res.status(201).json({

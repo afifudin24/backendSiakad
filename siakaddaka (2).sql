@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Sep 2024 pada 23.22
--- Versi server: 10.4.11-MariaDB
+-- Waktu pembuatan: 25 Sep 2024 pada 15.43
+-- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
   `tanggal_lahir` varchar(30) NOT NULL,
   `alamat` varchar(30) NOT NULL,
   `gambar` varchar(40) NOT NULL DEFAULT 'default.jpeg'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `admin`
@@ -55,7 +55,7 @@ CREATE TABLE `datamengajar` (
   `guru_id` int(11) NOT NULL,
   `mapel_id` int(11) NOT NULL,
   `kelas_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `datamengajar`
@@ -80,7 +80,7 @@ CREATE TABLE `ejurnal` (
   `jml_izin` int(11) DEFAULT 0,
   `jml_sakit` int(11) DEFAULT 0,
   `jml_alfa` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `ejurnal`
@@ -105,7 +105,7 @@ CREATE TABLE `gurus` (
   `alamat` varchar(30) NOT NULL,
   `no_telepon` varchar(20) NOT NULL,
   `gambar` varchar(50) DEFAULT 'default.jpg'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `gurus`
@@ -132,7 +132,7 @@ CREATE TABLE `jadwalmengajar` (
   `hari` varchar(20) NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `jadwalmengajar`
@@ -151,7 +151,7 @@ CREATE TABLE `kelas` (
   `id` int(11) NOT NULL,
   `title` varchar(20) NOT NULL,
   `tingkat` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `kelas`
@@ -174,7 +174,7 @@ CREATE TABLE `logabsensi` (
   `tgl_absen` date NOT NULL,
   `pertemuan_ke` int(11) NOT NULL,
   `status_absensi` enum('H','I','S','A') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `logabsensi`
@@ -184,7 +184,9 @@ INSERT INTO `logabsensi` (`id`, `mengajar_id`, `siswa_id`, `tgl_absen`, `pertemu
 (1, 1, 10, '2024-09-12', 1, 'H'),
 (2, 1, 12, '2024-09-12', 1, 'H'),
 (3, 1, 10, '2024-09-27', 2, 'A'),
-(4, 1, 12, '2024-09-27', 2, 'A');
+(4, 1, 12, '2024-09-27', 2, 'A'),
+(7, 1, 12, '2024-09-26', 0, 'I'),
+(8, 1, 10, '2024-09-26', 0, 'I');
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,17 @@ CREATE TABLE `logabsensiwalkel` (
   `tgl_absen` date NOT NULL,
   `status_absen` enum('H','A','I','S') NOT NULL,
   `absen_ke` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `logabsensiwalkel`
+--
+
+INSERT INTO `logabsensiwalkel` (`id`, `siswa_id`, `kelas_id`, `tgl_absen`, `status_absen`, `absen_ke`) VALUES
+(1, 12, 1, '2024-09-25', 'H', 1),
+(2, 10, 1, '2024-09-25', 'H', 1),
+(5, 12, 1, '2024-09-26', 'A', 2),
+(6, 10, 1, '2024-09-26', 'A', 2);
 
 -- --------------------------------------------------------
 
@@ -211,7 +223,7 @@ CREATE TABLE `mapel` (
   `id` int(11) NOT NULL,
   `kodeMapel` varchar(20) NOT NULL,
   `namaMapel` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `mapel`
@@ -234,7 +246,7 @@ CREATE TABLE `pengiriman_tugas` (
   `tanggal_pengumpulan` datetime NOT NULL DEFAULT current_timestamp(),
   `file` varchar(255) NOT NULL,
   `status` enum('submitted','late') DEFAULT 'submitted'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `pengiriman_tugas`
@@ -260,7 +272,7 @@ CREATE TABLE `siswa` (
   `tanggal_lahir` date DEFAULT NULL,
   `gambar` varchar(255) DEFAULT 'default.jpg',
   `no_hp` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `siswa`
@@ -284,7 +296,7 @@ CREATE TABLE `stafpembayaran` (
   `tanggal_lahir` date NOT NULL,
   `alamat` varchar(30) NOT NULL,
   `gambar` varchar(40) NOT NULL DEFAULT 'default.jpg'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -301,7 +313,7 @@ CREATE TABLE `tugas_kelas` (
   `deskripsi` text DEFAULT NULL,
   `tanggal_dibuat` datetime DEFAULT current_timestamp(),
   `tanggal_deadline` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tugas_kelas`
@@ -322,7 +334,7 @@ CREATE TABLE `users` (
   `username` varchar(20) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
@@ -350,7 +362,7 @@ CREATE TABLE `walikelas` (
   `id` int(11) NOT NULL,
   `kelas_id` int(5) NOT NULL,
   `guru_id` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `walikelas`
@@ -520,13 +532,13 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT untuk tabel `logabsensi`
 --
 ALTER TABLE `logabsensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `logabsensiwalkel`
 --
 ALTER TABLE `logabsensiwalkel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`

@@ -30,12 +30,12 @@ const LogAbsensi = {
 
     db.query(sql, [values], callback);
   },
-  updateAbsensi: (data, callback) => {
+  updateAbsensi: (data, date, callback) => {
     console.log(data[0].dataAbsen);
     const values = data.map((item) => [
       item.dataAbsen[0].status_absensi,
       item.dataAbsen[0].mengajar_id,
-      item.siswa_id,
+      date,
       item.dataAbsen[0].tgl_absen,
       item.dataAbsen[0].pertemuan_ke,
     ]);
