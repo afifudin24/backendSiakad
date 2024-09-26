@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Sep 2024 pada 15.43
+-- Waktu pembuatan: 26 Sep 2024 pada 05.32
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -64,6 +64,19 @@ CREATE TABLE `datamengajar` (
 INSERT INTO `datamengajar` (`id`, `guru_id`, `mapel_id`, `kelas_id`) VALUES
 (1, 8, 1, 3),
 (2, 9, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `dudi`
+--
+
+CREATE TABLE `dudi` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `alamat` text DEFAULT NULL,
+  `kontak` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -258,6 +271,23 @@ INSERT INTO `pengiriman_tugas` (`id`, `tugas_id`, `siswa_id`, `tanggal_pengumpul
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `pkl`
+--
+
+CREATE TABLE `pkl` (
+  `id` int(11) NOT NULL,
+  `dudi_id` int(11) NOT NULL,
+  `guru_id` int(11) NOT NULL,
+  `siswa_id` int(11) NOT NULL,
+  `jurusan` varchar(100) NOT NULL,
+  `progres` varchar(50) DEFAULT 'pengabdian',
+  `tanggal_mulai` date DEFAULT NULL,
+  `tanggal_selesai` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `siswa`
 --
 
@@ -394,6 +424,12 @@ ALTER TABLE `datamengajar`
   ADD KEY `guru_id` (`guru_id`);
 
 --
+-- Indeks untuk tabel `dudi`
+--
+ALTER TABLE `dudi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `ejurnal`
 --
 ALTER TABLE `ejurnal`
@@ -451,6 +487,15 @@ ALTER TABLE `pengiriman_tugas`
   ADD KEY `siswa_id` (`siswa_id`);
 
 --
+-- Indeks untuk tabel `pkl`
+--
+ALTER TABLE `pkl`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dudi_id` (`dudi_id`),
+  ADD KEY `guru_id` (`guru_id`),
+  ADD KEY `siswa_id` (`siswa_id`);
+
+--
 -- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
@@ -505,6 +550,12 @@ ALTER TABLE `datamengajar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT untuk tabel `dudi`
+--
+ALTER TABLE `dudi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `ejurnal`
 --
 ALTER TABLE `ejurnal`
@@ -551,6 +602,12 @@ ALTER TABLE `mapel`
 --
 ALTER TABLE `pengiriman_tugas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `pkl`
+--
+ALTER TABLE `pkl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `siswa`
@@ -638,6 +695,14 @@ ALTER TABLE `logabsensiwalkel`
 ALTER TABLE `pengiriman_tugas`
   ADD CONSTRAINT `pengiriman_tugas_ibfk_1` FOREIGN KEY (`tugas_id`) REFERENCES `tugas_kelas` (`id`),
   ADD CONSTRAINT `pengiriman_tugas_ibfk_2` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `pkl`
+--
+ALTER TABLE `pkl`
+  ADD CONSTRAINT `pkl_ibfk_1` FOREIGN KEY (`dudi_id`) REFERENCES `dudi` (`id`),
+  ADD CONSTRAINT `pkl_ibfk_2` FOREIGN KEY (`guru_id`) REFERENCES `gurus` (`id`),
+  ADD CONSTRAINT `pkl_ibfk_3` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `siswa`
