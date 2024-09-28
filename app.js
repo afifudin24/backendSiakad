@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 
 const app = express();
+const cors = require('cors');
 const siswaRoutes = require('./routes/siswaRoutes');
 const guruRoutes = require('./routes/guruRoutes');
 const stafPembayaranRoutes = require('./routes/stafPembayaranRoutes');
@@ -20,8 +21,17 @@ const pengirimanTugasRoutes = require('./routes/pengirimanTugasRoutes');
 const ejurnalRoutes = require('./routes/ejurnalRoutes');
 const logAbsensiRoutes = require('./routes/logAbsensiRoutes');
 const logAbsensiWalkelRoutes = require('./routes/logAbsensiWalkelRoutes');
-const PORT = 3000;
+const PORT = 8000;
 
+// Gunakan middleware CORS
+app.use(cors()); // Mengizinkan semua origin
+
+// Atau, jika Anda ingin mengizinkan origin tertentu:
+app.use(
+  cors({
+    origin: '*', // Ganti dengan URL aplikasi Anda
+  }),
+);
 // Route dasar
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

@@ -5,7 +5,8 @@ const { uploadImages, uploadPDFs } = require('../middleware/multerConfig');
 const verifyToken = require('../middleware/verifyToken');
 
 router.get('/', verifyToken, SiswaController.getAllSiswa);
-router.get('/:userId', SiswaController.getSiswaById);
+router.get('/getById/:userId', SiswaController.getSiswaById);
+router.get('/getByKelasId/:kelasId', SiswaController.getSiswaByKelasId);
 router.post('/', SiswaController.createSiswa);
 // router.put('/:userId',SiswaController.updateSiswa);
 router.put(
