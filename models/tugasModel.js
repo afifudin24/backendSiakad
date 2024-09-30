@@ -97,6 +97,74 @@ ORDER BY
       callback,
     );
   },
+  getTugasByDataMengajarGuru: (guruId, callback) => {
+    db.query(
+      `SELECT
+    t.id AS tugas_id,
+    t.judul_tugas AS judul_tugas,
+    t.deskripsi AS deskripsi_tugas,
+    t.tanggal_dibuat AS tugas_tanggal_dibuat,
+    t.tanggal_deadline AS tugas_tanggal_deadline,
+    k.id AS kelas_id,
+    k.title AS nama_kelas,
+    k.tingkat AS tingkat_kelas,
+    m.id AS mapel_id,
+    m.namaMapel AS nama_mapel,
+    g.id AS guru_id,
+    g.nama AS nama_guru
+FROM
+    tugas_kelas t
+INNER JOIN
+    datamengajar dm ON t.datamengajar_id = dm.id
+INNER JOIN
+    kelas k ON dm.kelas_id = k.id
+INNER JOIN
+    mapel m ON dm.mapel_id = m.id
+INNER JOIN
+    gurus g ON dm.guru_id = g.id
+WHERE
+    dm.guru_id = ?
+ORDER BY
+    t.id;
+`,
+      [guruId],
+      callback,
+    );
+  },
+  getTugasByDataMengajarId: (datamengajarId, callback) => {
+    db.query(
+      `SELECT
+    t.id AS tugas_id,
+    t.judul_tugas AS judul_tugas,
+    t.deskripsi AS deskripsi_tugas,
+    t.tanggal_dibuat AS tugas_tanggal_dibuat,
+    t.tanggal_deadline AS tugas_tanggal_deadline,
+    k.id AS kelas_id,
+    k.title AS nama_kelas,
+    k.tingkat AS tingkat_kelas,
+    m.id AS mapel_id,
+    m.namaMapel AS nama_mapel,
+    g.id AS guru_id,
+    g.nama AS nama_guru
+FROM
+    tugas_kelas t
+INNER JOIN
+    datamengajar dm ON t.datamengajar_id = dm.id
+INNER JOIN
+    kelas k ON dm.kelas_id = k.id
+INNER JOIN
+    mapel m ON dm.mapel_id = m.id
+INNER JOIN
+    gurus g ON dm.guru_id = g.id
+WHERE
+    dm.id = ?
+ORDER BY
+    t.id;
+`,
+      [datamengajarId],
+      callback,
+    );
+  },
   createTugas: (data, callback) => {
     db.query('INSERT INTO tugas_kelas SET ?', [data], callback);
   },

@@ -119,6 +119,68 @@ const TugasController = {
       },
     );
   },
+  getTugasByDataMengajarGuru: (req, res) => {
+    const { guruId } = req.params;
+    Tugas.getTugasByDataMengajarGuru(guruId, (err, result) => {
+      if (err) return res.status(500).json(err);
+      const formattedResults = result.map((row) => ({
+        id: row.tugas_id,
+        judul_tugas: row.judul_tugas,
+        deskripsi_tugas: row.deskripsi_tugas,
+        tanggal_dibuat: row.tugas_tanggal_dibuat,
+        tangal_deadline: row.tugas_tanggal_deadline,
+        guru: {
+          id: row.guru_id,
+          nama: row.nama_guru,
+        },
+        kelas: {
+          id: row.kelas_id,
+          nama: row.nama_kelas,
+          tingkat: row.tingkat_kelas,
+        },
+        mapel: {
+          id: row.mapel_id,
+          nama: row.nama_mapel,
+        },
+      }));
+      res.json({
+        message: 'Success Get Data',
+        data: formattedResults,
+        status: 200,
+      });
+    });
+  },
+  getTugasByDataMengajarId: (req, res) => {
+    const { datamengajarId } = req.params;
+    Tugas.getTugasByDataMengajarId(datamengajarId, (err, result) => {
+      if (err) return res.status(500).json(err);
+      const formattedResults = result.map((row) => ({
+        id: row.tugas_id,
+        judul_tugas: row.judul_tugas,
+        deskripsi_tugas: row.deskripsi_tugas,
+        tanggal_dibuat: row.tugas_tanggal_dibuat,
+        tangal_deadline: row.tugas_tanggal_deadline,
+        guru: {
+          id: row.guru_id,
+          nama: row.nama_guru,
+        },
+        kelas: {
+          id: row.kelas_id,
+          nama: row.nama_kelas,
+          tingkat: row.tingkat_kelas,
+        },
+        mapel: {
+          id: row.mapel_id,
+          nama: row.nama_mapel,
+        },
+      }));
+      res.json({
+        message: 'Success Get Data',
+        data: formattedResults,
+        status: 200,
+      });
+    });
+  },
   createTugas: (req, res) => {
     const data = req.body;
     Tugas.createTugas(data, (err, result) => {

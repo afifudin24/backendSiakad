@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Sep 2024 pada 05.02
+-- Waktu pembuatan: 30 Sep 2024 pada 15.43
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -63,7 +63,7 @@ CREATE TABLE `datamengajar` (
 
 INSERT INTO `datamengajar` (`id`, `guru_id`, `mapel_id`, `kelas_id`) VALUES
 (1, 8, 1, 3),
-(2, 9, 1, 1);
+(2, 8, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -75,8 +75,17 @@ CREATE TABLE `dudi` (
   `id` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `alamat` text DEFAULT NULL,
-  `kontak` varchar(50) DEFAULT NULL
+  `kontak` varchar(50) DEFAULT NULL,
+  `jurusan` enum('TKJ','TKR','AKL','PM','TSM') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `dudi`
+--
+
+INSERT INTO `dudi` (`id`, `nama`, `alamat`, `kontak`, `jurusan`) VALUES
+(2, 'Telkom Purwokerto', 'Kec. Purwokerto', 'Belum Ada', 'TKJ'),
+(3, 'BRI Majenang', 'Majenang', 'Belum Ada', 'AKL');
 
 -- --------------------------------------------------------
 
@@ -116,6 +125,7 @@ CREATE TABLE `gurus` (
   `nama` varchar(20) NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `alamat` varchar(30) NOT NULL,
+  `hobi` varchar(30) NOT NULL,
   `no_telepon` varchar(20) NOT NULL,
   `gambar` varchar(50) DEFAULT 'default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -124,13 +134,13 @@ CREATE TABLE `gurus` (
 -- Dumping data untuk tabel `gurus`
 --
 
-INSERT INTO `gurus` (`id`, `user_id`, `email`, `nama`, `tanggal_lahir`, `alamat`, `no_telepon`, `gambar`) VALUES
-(1, 1, 'ahmad.salim@example.', 'Ahmad Salim', '1980-02-15', 'Jl. Merpati No. 23, Jakarta', '081234567890', 'ahmad_salim.jpg'),
-(2, 2, 'nurul.hidayah@exampl', 'Nurul Hidayah', '1985-05-22', 'Jl. Anggrek No. 12, Bandung', '081234567891', 'nurul_hidayah.jpg'),
-(3, 3, 'muhammad.fauzi@examp', 'Muhammad Fauzi', '1978-11-30', 'Jl. Kenanga No. 5, Surabaya', '081234567892', 'muhammad_fauzi.jpg'),
-(4, 4, 'siti.khairunnisa@exa', 'Siti Khairunnisa', '1990-08-17', 'Jl. Melati No. 9, Yogyakarta', '081234567893', 'siti_khairunnisa.jpg'),
-(8, 25327, 'kocak@gmail.com', 'Afif Dong', '2003-01-24', 'Surusunda', '081548769365', 'default.jpg'),
-(9, 73571, 'guru@gmail.com', 'Afif Udin', '2003-01-24', 'Surusunda', '081548769365', '1726465937862_download (2).jpeg');
+INSERT INTO `gurus` (`id`, `user_id`, `email`, `nama`, `tanggal_lahir`, `alamat`, `hobi`, `no_telepon`, `gambar`) VALUES
+(1, 1, 'ahmad.salim@example.', 'Ahmad Salim', '1980-02-15', 'Jl. Merpati No. 23, Jakarta', '', '081234567890', 'ahmad_salim.jpg'),
+(2, 2, 'nurul.hidayah@exampl', 'Nurul Hidayah', '1985-05-22', 'Jl. Anggrek No. 12, Bandung', '', '081234567891', 'nurul_hidayah.jpg'),
+(3, 3, 'muhammad.fauzi@examp', 'Muhammad Fauzi', '1978-11-30', 'Jl. Kenanga No. 5, Surabaya', '', '081234567892', 'muhammad_fauzi.jpg'),
+(4, 4, 'siti.khairunnisa@exa', 'Siti Khairunnisa', '1990-08-17', 'Jl. Melati No. 9, Yogyakarta', '', '081234567893', 'siti_khairunnisa.jpg'),
+(8, 25327, 'afif@gmail.com', 'Udin Saja', '2003-01-24', 'Surusunda', 'Berdiam Diri', '081548769365', '1727592973002_gmbarku.jpg'),
+(9, 73571, 'guru@gmail.com', 'Afif Udin', '2003-01-24', 'Surusunda', 'Ngoding', '081548769365', 'gambar.jpeg');
 
 -- --------------------------------------------------------
 
@@ -152,7 +162,8 @@ CREATE TABLE `jadwalmengajar` (
 --
 
 INSERT INTO `jadwalmengajar` (`id`, `mengajar_id`, `jamke`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(3, 1, '3 - 4', 'Sabtu', '08:20:00', '10:00:00');
+(3, 1, '3 - 4', 'Sabtu', '08:20:00', '10:00:00'),
+(4, 1, '3 - 4', 'Sabtu', '07:20:00', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -268,13 +279,6 @@ CREATE TABLE `pengiriman_tugas` (
   `status` enum('submitted','late') DEFAULT 'submitted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `pengiriman_tugas`
---
-
-INSERT INTO `pengiriman_tugas` (`id`, `tugas_id`, `siswa_id`, `tanggal_pengumpulan`, `file`, `status`) VALUES
-(1, 4, 10, '2024-09-22 04:14:57', 'data', 'submitted');
-
 -- --------------------------------------------------------
 
 --
@@ -291,6 +295,14 @@ CREATE TABLE `pkl` (
   `tanggal_mulai` date DEFAULT NULL,
   `tanggal_selesai` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pkl`
+--
+
+INSERT INTO `pkl` (`id`, `dudi_id`, `guru_id`, `siswa_id`, `jurusan`, `progres`, `tanggal_mulai`, `tanggal_selesai`) VALUES
+(1, 2, 8, 10, 'TKJ', 'Pengabdian', '2024-09-01', NULL),
+(3, 3, 8, 12, 'TKJ', 'Pengabdian', '2024-09-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -343,9 +355,7 @@ CREATE TABLE `stafpembayaran` (
 
 CREATE TABLE `tugas_kelas` (
   `id` int(11) NOT NULL,
-  `kelas_id` int(11) NOT NULL,
-  `mapel_id` int(11) NOT NULL,
-  `guru_id` int(11) NOT NULL,
+  `datamengajar_id` int(11) NOT NULL,
   `judul_tugas` varchar(255) NOT NULL,
   `deskripsi` text DEFAULT NULL,
   `tanggal_dibuat` datetime DEFAULT current_timestamp(),
@@ -356,9 +366,8 @@ CREATE TABLE `tugas_kelas` (
 -- Dumping data untuk tabel `tugas_kelas`
 --
 
-INSERT INTO `tugas_kelas` (`id`, `kelas_id`, `mapel_id`, `guru_id`, `judul_tugas`, `deskripsi`, `tanggal_dibuat`, `tanggal_deadline`) VALUES
-(4, 1, 1, 9, 'Tugas Baru', 'Baru tugas', '2024-09-22 08:50:54', '2024-09-17 08:50:32'),
-(5, 1, 3, 9, 'Tugas Baru', 'Baru tugas', '2024-09-22 08:50:54', '2024-09-17 08:50:32');
+INSERT INTO `tugas_kelas` (`id`, `datamengajar_id`, `judul_tugas`, `deskripsi`, `tanggal_dibuat`, `tanggal_deadline`) VALUES
+(6, 1, 'Tugas Baru', 'Ini adalah tugas baru', '2024-09-29 20:00:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -522,9 +531,7 @@ ALTER TABLE `stafpembayaran`
 --
 ALTER TABLE `tugas_kelas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `kelas_id` (`kelas_id`),
-  ADD KEY `mapel_id` (`mapel_id`),
-  ADD KEY `guru_id` (`guru_id`);
+  ADD KEY `datamengajar_id` (`datamengajar_id`);
 
 --
 -- Indeks untuk tabel `users`
@@ -560,7 +567,7 @@ ALTER TABLE `datamengajar`
 -- AUTO_INCREMENT untuk tabel `dudi`
 --
 ALTER TABLE `dudi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `ejurnal`
@@ -578,7 +585,7 @@ ALTER TABLE `gurus`
 -- AUTO_INCREMENT untuk tabel `jadwalmengajar`
 --
 ALTER TABLE `jadwalmengajar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `kelas`
@@ -614,7 +621,7 @@ ALTER TABLE `pengiriman_tugas`
 -- AUTO_INCREMENT untuk tabel `pkl`
 --
 ALTER TABLE `pkl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `siswa`
@@ -632,7 +639,7 @@ ALTER TABLE `stafpembayaran`
 -- AUTO_INCREMENT untuk tabel `tugas_kelas`
 --
 ALTER TABLE `tugas_kelas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -728,9 +735,7 @@ ALTER TABLE `stafpembayaran`
 -- Ketidakleluasaan untuk tabel `tugas_kelas`
 --
 ALTER TABLE `tugas_kelas`
-  ADD CONSTRAINT `tugas_kelas_ibfk_1` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`),
-  ADD CONSTRAINT `tugas_kelas_ibfk_2` FOREIGN KEY (`mapel_id`) REFERENCES `mapel` (`id`),
-  ADD CONSTRAINT `tugas_kelas_ibfk_3` FOREIGN KEY (`guru_id`) REFERENCES `gurus` (`id`);
+  ADD CONSTRAINT `tugas_kelas_ibfk_1` FOREIGN KEY (`datamengajar_id`) REFERENCES `datamengajar` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `walikelas`
