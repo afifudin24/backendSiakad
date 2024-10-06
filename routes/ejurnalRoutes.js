@@ -11,6 +11,18 @@ router.get(
   '/getBymengajarIdmonth/:mengajarId/:month/:year',
   EjurnalController.getBymengajarIdMonth,
 );
+router.get(
+  '/getByGuruId7LastDays/:guruId',
+  EjurnalController.getByGuruIdLast7Days,
+);
+router.get(
+  '/getByKelasIdDate/:kelasId/:date',
+  EjurnalController.getByKelasIdDate,
+);
+router.get(
+  '/getByKelasIdMonth/:kelasId/:month',
+  EjurnalController.getByKelasIdMonth,
+);
 router.post('/', EjurnalController.createEjurnal);
 router.put('/:id', EjurnalController.updateJurnal);
 module.exports = router;

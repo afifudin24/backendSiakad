@@ -179,6 +179,26 @@ const GuruController = {
       res.json(formattedResults);
     });
   },
+  getWalikelasByGuruId: (req, res) => {
+    const { guruId } = req.params;
+    Guru.getWalikelasByGuruId(guruId, (err, result) => {
+      if (err) return res.status(500).json(err);
+      console.log(result);
+      const formattedResults = result.map((row) => ({
+        id: row.walikelas_id,
+        guru: {
+          id: row.guru_id,
+          nama: row.guru_nama,
+        },
+        kelas: {
+          id: row.kelas_id,
+          nama: row.kelas_nama,
+        },
+      }));
+      // Kirim hasil JSON
+      res.json(formattedResults);
+    });
+  },
 
   createWalikelas: (req, res) => {
     const { kelas_id, guru_id } = req.body;

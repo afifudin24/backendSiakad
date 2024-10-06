@@ -1,6 +1,19 @@
 const LogAbsensi = require('../models/logAbsensiModels');
 
 const LogAbsensiController = {
+  getLastAbsensi: (req, res) => {
+    const { mengajarId, date } = req.params;
+    console.log(mengajarId);
+    console.log(date);
+    LogAbsensi.lastAbsensi(mengajarId, date, (err, result) => {
+      if (err) return res.status(500).json(err);
+
+      res.json({
+        message: 'Success Get Last Pertemuan',
+        data: result,
+      });
+    });
+  },
   getByMengajarIdMonth: (req, res) => {
     const { mengajarId, month } = req.params;
     LogAbsensi.getByMengajarIdMonth(mengajarId, month, (err, result) => {
@@ -81,6 +94,7 @@ const LogAbsensiController = {
     const { mengajarId, date } = req.params;
     LogAbsensi.getByMengajarIdDate(mengajarId, date, (err, result) => {
       if (err) return res.status(500).json(err);
+      console.log(result);
       const formattedResults = result.reduce((acc, row) => {
         // Cari apakah siswa sudah ada dalam array hasil
         let siswaIndex = acc.findIndex(
@@ -154,8 +168,8 @@ const LogAbsensiController = {
   },
   updateAbsensi: (req, res) => {
     const data = req.body;
-    const {date} = req.params;
-    LogAbsensi.updateAbsensi(data, date, (err, result) => {
+    // const { date } = req.params;
+    LogAbsensi.updateAbsensi(data, (err, result) => {
       console.log(result);
       if (err) return res.status(500).json(err);
       res.status(201).json({

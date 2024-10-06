@@ -10,8 +10,15 @@ const Ejurnal = {
   },
   getBymengajarIdMonth: (idMengajar, month, year, callback) => {
     db.query(
-      'SELECT  e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM  ejurnal e INNER JOIN  datamengajar dm ON e.mengajar_id = dm.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  mapel m ON dm.mapel_id = m.id WHERE dm.id = ?  AND MONTH(e.tgl_jurnal) = ? AND YEAR(e.tgl_jurnal) = ?',
+      'SELECT  e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, e.tgl_jurnal AS tgl_jurnal, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM  ejurnal e INNER JOIN  datamengajar dm ON e.mengajar_id = dm.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  mapel m ON dm.mapel_id = m.id WHERE dm.id = ?  AND MONTH(e.tgl_jurnal) = ? AND YEAR(e.tgl_jurnal) = ?',
       [idMengajar, month, year],
+      callback,
+    );
+  },
+  getByKelasIdMonth: (kelasId, month, callback) => {
+    db.query(
+      'SELECT  e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, e.tgl_jurnal AS tgl_jurnal, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM  ejurnal e INNER JOIN  datamengajar dm ON e.mengajar_id = dm.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  mapel m ON dm.mapel_id = m.id WHERE k.id = ?  AND MONTH(e.tgl_jurnal) = ? ',
+      [kelasId, month],
       callback,
     );
   },
@@ -19,6 +26,21 @@ const Ejurnal = {
     db.query(
       'SELECT  e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM  ejurnal e INNER JOIN  datamengajar dm ON e.mengajar_id = dm.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  mapel m ON dm.mapel_id = m.id WHERE dm.id = ? AND e.tgl_jurnal = ?',
       [idMengajar, date],
+      callback,
+    );
+  },
+  getByKelasIdDate: (kelasId, date, callback) => {
+    console.log('nih', kelasId);
+    db.query(
+      'SELECT  e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, e.tgl_jurnal AS tgl_jurnal, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM  ejurnal e INNER JOIN  datamengajar dm ON e.mengajar_id = dm.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  mapel m ON dm.mapel_id = m.id WHERE k.id = ?  AND e.tgl_jurnal = ?',
+      [kelasId, date],
+      callback,
+    );
+  },
+  getByguruIdLast7Days: (idGuru, callback) => {
+    db.query(
+      'SELECT e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM ejurnal e INNER JOIN datamengajar dm ON e.mengajar_id = dm.id INNER JOIN gurus g ON dm.guru_id = g.id INNER JOIN kelas k ON dm.kelas_id = k.id INNER JOIN mapel m ON dm.mapel_id = m.id WHERE g.id = ? AND e.tgl_jurnal BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()',
+      [idGuru],
       callback,
     );
   },

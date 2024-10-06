@@ -82,7 +82,6 @@ const LogAbsensiWalkelController = {
             dataAbsen: [
               {
                 tgl_absen: new Date(row.tgl_absen),
-
                 status_absen: row.status_absen,
               },
             ],
