@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Sep 2024 pada 15.43
+-- Waktu pembuatan: 13 Okt 2024 pada 16.05
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -63,7 +63,7 @@ CREATE TABLE `datamengajar` (
 
 INSERT INTO `datamengajar` (`id`, `guru_id`, `mapel_id`, `kelas_id`) VALUES
 (1, 8, 1, 3),
-(2, 8, 1, 1);
+(2, 9, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -109,8 +109,7 @@ CREATE TABLE `ejurnal` (
 --
 
 INSERT INTO `ejurnal` (`id`, `mengajar_id`, `tgl_jurnal`, `pembahasan`, `jml_hadir`, `jml_izin`, `jml_sakit`, `jml_alfa`) VALUES
-(1, 1, '2024-09-18', 'Kocak', 30, 3, 2, 1),
-(2, 1, '2024-09-20', 'Ini Pembahasan Baru', 30, 2, 3, 1);
+(27, 2, '2024-10-06', 'pertemuan pertama', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -127,7 +126,7 @@ CREATE TABLE `gurus` (
   `alamat` varchar(30) NOT NULL,
   `hobi` varchar(30) NOT NULL,
   `no_telepon` varchar(20) NOT NULL,
-  `gambar` varchar(50) DEFAULT 'default.jpg'
+  `gambar` varchar(255) DEFAULT 'default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -139,8 +138,8 @@ INSERT INTO `gurus` (`id`, `user_id`, `email`, `nama`, `tanggal_lahir`, `alamat`
 (2, 2, 'nurul.hidayah@exampl', 'Nurul Hidayah', '1985-05-22', 'Jl. Anggrek No. 12, Bandung', '', '081234567891', 'nurul_hidayah.jpg'),
 (3, 3, 'muhammad.fauzi@examp', 'Muhammad Fauzi', '1978-11-30', 'Jl. Kenanga No. 5, Surabaya', '', '081234567892', 'muhammad_fauzi.jpg'),
 (4, 4, 'siti.khairunnisa@exa', 'Siti Khairunnisa', '1990-08-17', 'Jl. Melati No. 9, Yogyakarta', '', '081234567893', 'siti_khairunnisa.jpg'),
-(8, 25327, 'afif@gmail.com', 'Udin Saja', '2003-01-24', 'Surusunda', 'Berdiam Diri', '081548769365', '1727592973002_gmbarku.jpg'),
-(9, 73571, 'guru@gmail.com', 'Afif Udin', '2003-01-24', 'Surusunda', 'Ngoding', '081548769365', 'gambar.jpeg');
+(8, 25327, 'afif@gmail.com', 'Afif Waliyudin', '2003-01-24', 'Surusunda', 'Ngoding', '081548769365', '1728115936802_aing.jpg'),
+(9, 73571, 'guru@gmail.com', 'Afif ', '2003-01-24', 'Surusunda', 'Ngoding', '081548769365', 'gambar.jpeg');
 
 -- --------------------------------------------------------
 
@@ -163,7 +162,7 @@ CREATE TABLE `jadwalmengajar` (
 
 INSERT INTO `jadwalmengajar` (`id`, `mengajar_id`, `jamke`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
 (3, 1, '3 - 4', 'Sabtu', '08:20:00', '10:00:00'),
-(4, 1, '3 - 4', 'Sabtu', '07:20:00', '10:00:00');
+(4, 2, '3 - 4', 'Sabtu', '07:20:00', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -205,12 +204,7 @@ CREATE TABLE `logabsensi` (
 --
 
 INSERT INTO `logabsensi` (`id`, `mengajar_id`, `siswa_id`, `tgl_absen`, `pertemuan_ke`, `status_absensi`) VALUES
-(1, 1, 10, '2024-09-12', 1, 'H'),
-(2, 1, 12, '2024-09-12', 1, 'H'),
-(3, 1, 10, '2024-09-27', 2, 'A'),
-(4, 1, 12, '2024-09-27', 2, 'A'),
-(7, 1, 12, '2024-09-26', 0, 'I'),
-(8, 1, 10, '2024-09-26', 0, 'I');
+(44, 2, 13, '2024-10-06', 1, 'A');
 
 -- --------------------------------------------------------
 
@@ -242,7 +236,13 @@ INSERT INTO `logabsensiwalkel` (`id`, `siswa_id`, `kelas_id`, `tgl_absen`, `stat
 (17, 10, 1, '2024-09-29', 'A'),
 (18, 12, 1, '2024-09-29', 'A'),
 (19, 10, 1, '2024-10-02', 'I'),
-(20, 12, 1, '2024-10-02', 'A');
+(20, 12, 1, '2024-10-02', 'A'),
+(22, 13, 3, '2024-10-05', 'S'),
+(23, 13, 3, '2024-10-06', 'I'),
+(26, 13, 3, '2024-10-13', 'H'),
+(27, 13, 3, '2024-10-16', 'A'),
+(28, 13, 3, '2024-10-23', 'I'),
+(29, 13, 3, '2024-10-30', 'A');
 
 -- --------------------------------------------------------
 
@@ -329,7 +329,8 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id`, `user_id`, `kelas_id`, `nama`, `nis`, `alamat`, `hobi`, `tanggal_lahir`, `gambar`, `no_hp`) VALUES
 (10, 774, 1, 'aw', '18195012', 'Surusunda', 'Ga ada', '2003-01-24', '1726498253261_download (2).jpeg', '081548769465'),
-(12, 277, 1, 'Udin Saja', '181951223', 'Surusunda', 'Ga ada', '2003-01-24', 'default.jpg', '081548769465');
+(12, 277, 1, 'Udin Saja', '181951223', 'Surusunda', 'Ga ada', '2003-01-24', 'default.jpg', '081548769465'),
+(13, 277, 3, 'Lucu banget', '181951223', 'Surusunda', 'Ga ada', '2003-01-24', 'default.jpg', '081548769465');
 
 -- --------------------------------------------------------
 
@@ -396,7 +397,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (912, 'admin@gmail.com', '$2a$10$KQYFWAFT797Ie0mRT7oj9uzcCBBjwjriOrE9ywnfZivKttAGM7qnS', 1),
 (987, 'staf@gmail.com', '$2a$10$AyR/QRlewCirNQDaqD8Y7.UEZUZKzxB/hcRNQpKvJlAKgKtSX4iFO', 4),
 (25327, 'kocak@gmail.com', '$2a$10$pLdB3wmDFTTyXQ6d2zKlTuKOrOSRrHwFexgXeH5cTqzNYwHc3geKW', 2),
-(73571, 'guru@gmail.com', '$2a$10$5SrwfsWGTtkmUr0DL6vimuqjQxDA2O85SZP1/rggjwgLdUjTnhXoC', 2);
+(73571, 'guru@gmail.com', '$2y$10$lerJcFPFz5g.eJBTX2wBleEPEG32PqlfAqaEzb1.HPEZIuw1ZoIru', 2);
 
 -- --------------------------------------------------------
 
@@ -416,7 +417,6 @@ CREATE TABLE `walikelas` (
 
 INSERT INTO `walikelas` (`id`, `kelas_id`, `guru_id`) VALUES
 (1, 1, 8),
-(2, 1, 8),
 (3, 3, 9);
 
 --
@@ -573,7 +573,7 @@ ALTER TABLE `dudi`
 -- AUTO_INCREMENT untuk tabel `ejurnal`
 --
 ALTER TABLE `ejurnal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `gurus`
@@ -597,13 +597,13 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT untuk tabel `logabsensi`
 --
 ALTER TABLE `logabsensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT untuk tabel `logabsensiwalkel`
 --
 ALTER TABLE `logabsensiwalkel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`
@@ -627,7 +627,7 @@ ALTER TABLE `pkl`
 -- AUTO_INCREMENT untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `stafpembayaran`
