@@ -12,6 +12,10 @@ router.get(
   EjurnalController.getBymengajarIdMonth,
 );
 router.get(
+  '/getByGuruIdDate/:guruId/:date',
+  EjurnalController.getByGuruIdDate,
+);
+router.get(
   '/getByGuruId7LastDays/:guruId',
   EjurnalController.getByGuruIdLast7Days,
 );
