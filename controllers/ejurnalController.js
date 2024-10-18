@@ -294,12 +294,38 @@ const EjurnalController = {
 
         return acc;
       }, []);
+      const formattedResults = result.map((row) => ({
+        id: row.ejurnal_id,
+        // tgl_jurnal: new Date(row.tgl_jurnal).toISOString().split('T')[0],
+        tgl_jurnal: new Date(row.tgl_jurnal).toLocaleDateString('id-ID'),
+        pembahasan: row.pembahasan,
+        jml_hadir: row.jml_hadir,
+        jml_sakit: row.jml_sakit,
+        jml_izin: row.jml_izin,
+        jml_alfa: row.jml_alfa,
+        jml_alfa: row.jml_alfa,
+        dataMengajar: {
+          id: row.data_mengajar_id,
+        },
+        guru: {
+          id: row.guru_id,
+          nama: row.nama_guru,
+        },
+        kelas: {
+          id: row.kelas_id,
+          tingkat_kelas: row.tingkat_kelas,
+          nama_kelas: row.nama_kelas,
+        },
+        mapel: {
+          nama_mapel: row.nama_mapel,
+        },
+      }));
 
       // Send the grouped results
       res.status(200).json({
         message: 'Success Get Data',
         status: 200,
-        data: groupedResults,
+        data: formattedResults,
       });
     });
   },
