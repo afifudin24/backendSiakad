@@ -47,6 +47,8 @@ const GuruController = {
             alamat: row.guru_alamat,
             hobi: row.guru_hobi,
             noTelepon: row.guru_no_telepon,
+            wakakesiswaan: row.wksId,
+            wakakurikulum: row.wkmId,
             walikelas: {
               walikelasId: row.walikelasId,
             },

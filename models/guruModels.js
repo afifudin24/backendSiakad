@@ -6,7 +6,7 @@ const Guru = {
   },
   getById: (id, callback) => {
     db.query(
-      'SELECT g.id AS guruId, g.hobi AS guru_hobi, g.alamat AS guru_alamat, g.email as guru_email, g.nama AS guru_nama, g.tanggal_lahir AS guru_tanggal_lahir, g.user_id AS guru_userId, g.gambar AS guru_gambar, g.no_telepon AS guru_no_telepon, wl.id AS walikelasId, wl.kelas_id as kelasId, pkl.id AS pklId FROM gurus g LEFT JOIN walikelas wl ON g.id = wl.guru_id LEFT JOIN pkl ON g.id = pkl.guru_id WHERE g.user_id = ?',
+      'SELECT g.id AS guruId, g.hobi AS guru_hobi, g.alamat AS guru_alamat, g.email as guru_email, g.nama AS guru_nama, g.tanggal_lahir AS guru_tanggal_lahir, g.user_id AS guru_userId, g.gambar AS guru_gambar, g.no_telepon AS guru_no_telepon, wl.id AS walikelasId, wl.kelas_id as kelasId, pkl.id AS pklId, wkm.id AS wkmId, wks.id AS wksId FROM gurus g LEFT JOIN walikelas wl ON g.id = wl.guru_id LEFT JOIN pkl ON g.id = pkl.guru_id LEFT JOIN wakakurikulum wkm ON g.id = wkm.guru_id LEFT JOIN wakakesiswaan wks ON g.id = wks.guruId WHERE g.user_id = ?',
       [id],
       callback,
     );

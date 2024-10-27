@@ -11,10 +11,7 @@ router.get(
   '/getBymengajarIdmonth/:mengajarId/:month/:year',
   EjurnalController.getBymengajarIdMonth,
 );
-router.get(
-  '/getByGuruIdDate/:guruId/:date',
-  EjurnalController.getByGuruIdDate,
-);
+router.get('/getByGuruIdDate/:guruId/:date', EjurnalController.getByGuruIdDate);
 router.get(
   '/getByGuruId7LastDays/:guruId',
   EjurnalController.getByGuruIdLast7Days,
@@ -27,6 +24,11 @@ router.get(
   '/getByKelasIdMonth/:kelasId/:month',
   EjurnalController.getByKelasIdMonth,
 );
+router.get(
+  '/getByJadwalMengajar/:guruId/:tanggal/:hari',
+  EjurnalController.getByJadwalMengajar,
+);
+router.get('/totalCount/:guruId', EjurnalController.countTotal);
 router.post('/', EjurnalController.createEjurnal);
 router.put('/:id', EjurnalController.updateJurnal);
 module.exports = router;

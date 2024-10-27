@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Okt 2024 pada 16.05
+-- Waktu pembuatan: 27 Okt 2024 pada 16.28
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -109,7 +109,8 @@ CREATE TABLE `ejurnal` (
 --
 
 INSERT INTO `ejurnal` (`id`, `mengajar_id`, `tgl_jurnal`, `pembahasan`, `jml_hadir`, `jml_izin`, `jml_sakit`, `jml_alfa`) VALUES
-(27, 2, '2024-10-06', 'pertemuan pertama', 0, 0, 0, 1);
+(27, 2, '2024-10-06', 'pertemuan pertama', 0, 0, 0, 1),
+(28, 2, '2024-10-27', 'tes aja', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -161,8 +162,10 @@ CREATE TABLE `jadwalmengajar` (
 --
 
 INSERT INTO `jadwalmengajar` (`id`, `mengajar_id`, `jamke`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(3, 1, '3 - 4', 'Sabtu', '08:20:00', '10:00:00'),
-(4, 2, '3 - 4', 'Sabtu', '07:20:00', '10:00:00');
+(3, 1, '3 - 4', 'Sabtu', '08:20:00', '15:00:00'),
+(4, 2, '3 - 4', 'Minggu', '07:20:00', '10:00:00'),
+(5, 1, '1 - 2', 'Minggu', '07:00:00', '15:20:00'),
+(6, 2, '3 - 4', 'Minggu', '13:20:00', '15:00:00');
 
 -- --------------------------------------------------------
 
@@ -204,7 +207,8 @@ CREATE TABLE `logabsensi` (
 --
 
 INSERT INTO `logabsensi` (`id`, `mengajar_id`, `siswa_id`, `tgl_absen`, `pertemuan_ke`, `status_absensi`) VALUES
-(44, 2, 13, '2024-10-06', 1, 'A');
+(44, 2, 13, '2024-10-06', 1, 'A'),
+(45, 2, 13, '2024-10-27', 2, 'S');
 
 -- --------------------------------------------------------
 
@@ -402,6 +406,35 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `wakakesiswaan`
+--
+
+CREATE TABLE `wakakesiswaan` (
+  `id` int(11) NOT NULL,
+  `guruId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `wakakurikulum`
+--
+
+CREATE TABLE `wakakurikulum` (
+  `id` int(11) NOT NULL,
+  `guru_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `wakakurikulum`
+--
+
+INSERT INTO `wakakurikulum` (`id`, `guru_id`) VALUES
+(1, 9);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `walikelas`
 --
 
@@ -540,6 +573,20 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `wakakesiswaan`
+--
+ALTER TABLE `wakakesiswaan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `guruId` (`guruId`);
+
+--
+-- Indeks untuk tabel `wakakurikulum`
+--
+ALTER TABLE `wakakurikulum`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `guru_id` (`guru_id`);
+
+--
 -- Indeks untuk tabel `walikelas`
 --
 ALTER TABLE `walikelas`
@@ -573,7 +620,7 @@ ALTER TABLE `dudi`
 -- AUTO_INCREMENT untuk tabel `ejurnal`
 --
 ALTER TABLE `ejurnal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `gurus`
@@ -585,7 +632,7 @@ ALTER TABLE `gurus`
 -- AUTO_INCREMENT untuk tabel `jadwalmengajar`
 --
 ALTER TABLE `jadwalmengajar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `kelas`
@@ -597,7 +644,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT untuk tabel `logabsensi`
 --
 ALTER TABLE `logabsensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT untuk tabel `logabsensiwalkel`
@@ -646,6 +693,18 @@ ALTER TABLE `tugas_kelas`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73572;
+
+--
+-- AUTO_INCREMENT untuk tabel `wakakesiswaan`
+--
+ALTER TABLE `wakakesiswaan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `wakakurikulum`
+--
+ALTER TABLE `wakakurikulum`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `walikelas`
@@ -736,6 +795,18 @@ ALTER TABLE `stafpembayaran`
 --
 ALTER TABLE `tugas_kelas`
   ADD CONSTRAINT `tugas_kelas_ibfk_1` FOREIGN KEY (`datamengajar_id`) REFERENCES `datamengajar` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `wakakesiswaan`
+--
+ALTER TABLE `wakakesiswaan`
+  ADD CONSTRAINT `wakakesiswaan_ibfk_1` FOREIGN KEY (`guruId`) REFERENCES `gurus` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `wakakurikulum`
+--
+ALTER TABLE `wakakurikulum`
+  ADD CONSTRAINT `wakakurikulum_ibfk_1` FOREIGN KEY (`guru_id`) REFERENCES `gurus` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `walikelas`

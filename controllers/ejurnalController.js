@@ -329,6 +329,21 @@ const EjurnalController = {
       });
     });
   },
+  getByJadwalMengajar: (req, res) => {
+    const { guruId, hari, tanggal } = req.params;
+    Ejurnal.getByJadwalMengajar(guruId, tanggal, hari, (err, result) => {
+      if (err) return res.status(500).json(err);
+      console.log(result);
+      res.json(result);
+    });
+  },
+  countTotal: (req, res) => {
+    const { guruId } = req.params;
+    Ejurnal.countTotal(guruId, (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.json(result);
+    });
+  },
   createEjurnal: (req, res) => {
     const data = req.body;
     Ejurnal.createJurnal(data, (err, result) => {
