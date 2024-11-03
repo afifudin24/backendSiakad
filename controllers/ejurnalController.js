@@ -43,7 +43,7 @@ const EjurnalController = {
       if (err) return res.status(500).json(err);
       const formattedResults = result.map((row) => ({
         id: row.ejurnal_id,
-        tgl_jurnal: row.tanggal_jurnal,
+        tgl_jurnal: new Date(row.tgl_jurnal).toLocaleDateString('id-ID'),
         pembahasan: row.pembahasan,
         jml_hadir: row.jml_hadir,
         jml_sakit: row.jml_sakit,
