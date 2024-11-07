@@ -202,6 +202,36 @@ const GuruController = {
     });
   },
 
+  getWalikelasByKelasId: (req, res) => {
+    const { kelasId } = req.params;
+    console.log(kelasId);
+    Guru.getWalikelasByKelasId(kelasId, (err, result) => {
+      if (err) return res.status(500).json(err);
+      console.log(result);
+      const formattedResults = result.map((row) => ({
+        id: row.walikelas_id,
+        guru: {
+          id: row.guru_id,
+          nama: row.guru_nama,
+        },
+        kelas: {
+          id: row.kelas_id,
+          tingkat : row.kelas_tingkat,
+          nama: row.kelas_nama,
+        },
+      }));
+      // Kirim hasil JSON
+      res.json(formattedResults);
+    });
+  },
+
+  getWakaKesiswaan : (req, res) => {
+    Guru.getKesiswaan((err, result) => {
+      if (err) return res.status(500).json(err);
+      res.json(result);
+    })
+  },
+
   createWalikelas: (req, res) => {
     const { kelas_id, guru_id } = req.body;
     const checkQuery = `

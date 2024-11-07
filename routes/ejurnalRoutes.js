@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const EjurnalController = require('../controllers/ejurnalController');
-
+router.get('/getByJurnalId/:jurnalId', EjurnalController.getByJurnalId);
 router.get('/getByGuruId/:idGuru', EjurnalController.getByGuruId);
 router.get(
   '/getBymengajarIddate/:mengajarId/:date',

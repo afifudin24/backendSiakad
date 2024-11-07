@@ -2,6 +2,9 @@ const { getByJadwalMengajar } = require('../controllers/ejurnalController');
 const db = require('../db/config');
 
 const Ejurnal = {
+  getByJurnalId : (idJurnal, callback) => {
+    db.query(`SELECT  e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM  ejurnal e INNER JOIN  datamengajar dm ON e.mengajar_id = dm.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  mapel m ON dm.mapel_id = m.id WHERE e.id = ?`, [idJurnal], callback);
+  },
   getByGuruId: (idGuru, callback) => {
     db.query(
       'SELECT  e.id AS ejurnal_id, e.tgl_jurnal, e.pembahasan, e.jml_hadir, e.jml_izin, e.jml_sakit, e.jml_alfa, g.id as guru_id ,g.nama AS nama_guru, k.id AS kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, dm.id AS data_mengajar_id, m.namaMapel AS nama_mapel FROM  ejurnal e INNER JOIN  datamengajar dm ON e.mengajar_id = dm.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  mapel m ON dm.mapel_id = m.id WHERE  g.id = ?;',
