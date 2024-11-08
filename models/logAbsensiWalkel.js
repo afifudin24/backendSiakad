@@ -31,6 +31,13 @@ const LogAbsensiWalkel = {
       callback,
     );
   },
+  getBySiswaIdMonth: (siswaId, month, callback) => {
+    db.query(
+      'SELECT la.id, la.siswa_id, s.nama AS nama_siswa, la.kelas_id, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, la.tgl_absen, la.status_absen FROM  logabsensiwalkel la JOIN siswa s ON la.siswa_id = s.id JOIN  kelas k ON la.kelas_id = k.id WHERE  la.siswa_id = ? AND MONTH(la.tgl_absen) = ?;',
+      [siswaId, month],
+      callback,
+    );
+  },
   createAbsensi: (data, callback) => {
     const values = data.map((item) => [
       item.kelas_id,

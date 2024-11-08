@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const LogAbsensiWalkelController = require('../controllers/logAbsensiWalkelController');
 
+router.get(
+  '/getBySiswaMonth/:siswaId/:month',
+  LogAbsensiWalkelController.getBySiswa,
+);
 router.get('/getByKelas/:kelasId', LogAbsensiWalkelController.getByKelas);
 router.get(
   '/getByKelasDate/:kelasId/:date',

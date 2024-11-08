@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Okt 2024 pada 16.28
+-- Waktu pembuatan: 08 Nov 2024 pada 13.47
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -109,8 +109,7 @@ CREATE TABLE `ejurnal` (
 --
 
 INSERT INTO `ejurnal` (`id`, `mengajar_id`, `tgl_jurnal`, `pembahasan`, `jml_hadir`, `jml_izin`, `jml_sakit`, `jml_alfa`) VALUES
-(27, 2, '2024-10-06', 'pertemuan pertama', 0, 0, 0, 1),
-(28, 2, '2024-10-27', 'tes aja', 0, 0, 0, 0);
+(27, 2, '2024-10-06', 'pertemuan pertama', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -164,7 +163,7 @@ CREATE TABLE `jadwalmengajar` (
 INSERT INTO `jadwalmengajar` (`id`, `mengajar_id`, `jamke`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
 (3, 1, '3 - 4', 'Sabtu', '08:20:00', '15:00:00'),
 (4, 2, '3 - 4', 'Minggu', '07:20:00', '10:00:00'),
-(5, 1, '1 - 2', 'Minggu', '07:00:00', '15:20:00'),
+(5, 1, '1 - 2', 'Jum\'at', '07:00:00', '15:20:00'),
 (6, 2, '3 - 4', 'Minggu', '13:20:00', '15:00:00');
 
 -- --------------------------------------------------------
@@ -207,8 +206,10 @@ CREATE TABLE `logabsensi` (
 --
 
 INSERT INTO `logabsensi` (`id`, `mengajar_id`, `siswa_id`, `tgl_absen`, `pertemuan_ke`, `status_absensi`) VALUES
-(44, 2, 13, '2024-10-06', 1, 'A'),
-(45, 2, 13, '2024-10-27', 2, 'S');
+(44, 2, 10, '2024-10-06', 1, 'A'),
+(45, 2, 13, '2024-10-27', 2, 'S'),
+(46, 2, 13, '2024-11-07', 3, 'H'),
+(47, 2, 13, '2024-10-06', 1, 'A');
 
 -- --------------------------------------------------------
 
@@ -246,7 +247,8 @@ INSERT INTO `logabsensiwalkel` (`id`, `siswa_id`, `kelas_id`, `tgl_absen`, `stat
 (26, 13, 3, '2024-10-13', 'H'),
 (27, 13, 3, '2024-10-16', 'A'),
 (28, 13, 3, '2024-10-23', 'I'),
-(29, 13, 3, '2024-10-30', 'A');
+(29, 13, 3, '2024-10-30', 'A'),
+(30, 13, 3, '2024-11-07', 'H');
 
 -- --------------------------------------------------------
 
@@ -332,7 +334,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `user_id`, `kelas_id`, `nama`, `nis`, `alamat`, `hobi`, `tanggal_lahir`, `gambar`, `no_hp`) VALUES
-(10, 774, 1, 'aw', '18195012', 'Surusunda', 'Ga ada', '2003-01-24', '1726498253261_download (2).jpeg', '081548769465'),
+(10, 774, 3, 'aw', '18195012', 'Surusunda', 'Ga ada', '2003-01-24', '1726498253261_download (2).jpeg', '081548769465'),
 (12, 277, 1, 'Udin Saja', '181951223', 'Surusunda', 'Ga ada', '2003-01-24', 'default.jpg', '081548769465'),
 (13, 277, 3, 'Lucu banget', '181951223', 'Surusunda', 'Ga ada', '2003-01-24', 'default.jpg', '081548769465');
 
@@ -397,7 +399,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (3, '123458', '$2a$10$EgnNwC05vX7krQMsAFPXlejnbFR6X0Sx5fnQLsD.0FD7YLloFRhoG', 3),
 (4, '123459', '$2a$10$EgnNwC05vX7krQMsAFPXlejnbFR6X0Sx5fnQLsD.0FD7YLloFRhoG', 3),
 (277, '181951223', '$2a$10$L6PWOIsJMjZt7FqCr6nllO72MB0f3MTPYGj9v/QureOMSjMzq04Wi', 3),
-(774, '18195012', '$2a$10$pPZ6eY9JNiEVySTaJZv83.Jf7DDecGXqYhXbSI.JKCOs1nWkac6py', 3),
+(774, '18195012', '$2y$10$lerJcFPFz5g.eJBTX2wBleEPEG32PqlfAqaEzb1.HPEZIuw1ZoIru', 3),
 (912, 'admin@gmail.com', '$2a$10$KQYFWAFT797Ie0mRT7oj9uzcCBBjwjriOrE9ywnfZivKttAGM7qnS', 1),
 (987, 'staf@gmail.com', '$2a$10$AyR/QRlewCirNQDaqD8Y7.UEZUZKzxB/hcRNQpKvJlAKgKtSX4iFO', 4),
 (25327, 'kocak@gmail.com', '$2a$10$pLdB3wmDFTTyXQ6d2zKlTuKOrOSRrHwFexgXeH5cTqzNYwHc3geKW', 2),
@@ -413,6 +415,13 @@ CREATE TABLE `wakakesiswaan` (
   `id` int(11) NOT NULL,
   `guruId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `wakakesiswaan`
+--
+
+INSERT INTO `wakakesiswaan` (`id`, `guruId`) VALUES
+(1, 9);
 
 -- --------------------------------------------------------
 
@@ -620,7 +629,7 @@ ALTER TABLE `dudi`
 -- AUTO_INCREMENT untuk tabel `ejurnal`
 --
 ALTER TABLE `ejurnal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `gurus`
@@ -644,13 +653,13 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT untuk tabel `logabsensi`
 --
 ALTER TABLE `logabsensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT untuk tabel `logabsensiwalkel`
 --
 ALTER TABLE `logabsensiwalkel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`
@@ -698,7 +707,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `wakakesiswaan`
 --
 ALTER TABLE `wakakesiswaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `wakakurikulum`
