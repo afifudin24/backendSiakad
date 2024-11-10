@@ -101,9 +101,9 @@ const SiswaController = {
             data: data,
             err: err,
           });
-        res.json({
+        res.status(201).json({
           message: 'Siswa updated successfully',
-          result: result,
+          result: data,
           status: 201,
         });
       });

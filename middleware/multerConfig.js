@@ -9,10 +9,7 @@ const imageStorage = multer.diskStorage({
     cb(null, './uploads/'); // Folder tujuan penyimpanan gambar
   },
   filename: (req, file, cb) => {
-    const fileName = `${Date.now()}_${file.originalname.replace(
-      /\s+/g,
-      '%20',
-    )}`;
+    const fileName = `${Date.now()}_${file.originalname.replace(/\s+/g, '_')}`;
     cb(null, fileName); // Buat nama file unik
   },
 });

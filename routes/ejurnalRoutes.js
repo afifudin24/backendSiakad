@@ -17,6 +17,10 @@ router.get(
   EjurnalController.getByGuruIdLast7Days,
 );
 router.get(
+  '/getByKelasId7LastDays/:kelasId',
+  EjurnalController.getByKelasIdLast7Days,
+);
+router.get(
   '/getByKelasIdDate/:kelasId/:date',
   EjurnalController.getByKelasIdDate,
 );

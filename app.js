@@ -23,6 +23,7 @@ const logAbsensiRoutes = require('./routes/logAbsensiRoutes');
 const logAbsensiWalkelRoutes = require('./routes/logAbsensiWalkelRoutes');
 const dudiRoutes = require('./routes/dudiRoutes');
 const pklRoutes = require('./routes/pklRoutes');
+const sekolahRoutes = require('./routes/sekolahRoutes');
 const PORT = 8000;
 
 // Gunakan middleware CORS
@@ -60,6 +61,7 @@ app.use('/api/logabsensi', logAbsensiRoutes);
 app.use('/api/logabsensiwalkel', logAbsensiWalkelRoutes);
 app.use('/api/dudi', dudiRoutes);
 app.use('/api/pkl', pklRoutes);
+app.use('/api/sekolah', sekolahRoutes);
 
 // Route Static
 app.use('/uploads', express.static('uploads'));

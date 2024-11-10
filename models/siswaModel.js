@@ -6,7 +6,7 @@ const Siswa = {
   },
   getById: (userId, callback) => {
     db.query(
-      'SELECT s.id as siswa_id, s.nama, s.nis, s.alamat, s.kelas_id, s.hobi, s.gambar, k.tingkat, k.title FROM siswa s JOIN kelas k ON s.kelas_id = k.id WHERE user_id = ? LIMIT 1',
+      'SELECT s.id as siswa_id, s.nama, s.nis, s.alamat, s.kelas_id, s.hobi, s.gambar, ak.siswaId AS adminkelas , k.tingkat, k.title FROM siswa s JOIN kelas k ON s.kelas_id = k.id LEFT JOIN adminkelas ak ON s.id = ak.siswaId WHERE user_id = ? LIMIT 1',
       [userId],
       callback,
     );
