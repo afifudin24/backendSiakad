@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Nov 2024 pada 13.47
+-- Waktu pembuatan: 11 Nov 2024 pada 15.02
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -43,6 +43,25 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `user_id`, `nama`, `email`, `tanggal_lahir`, `alamat`, `gambar`) VALUES
 (2, 912, 'Afif', 'admin@gmail.com', '2003-01-24', 'Surusunda', 'lanjan.jpeg');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `adminkelas`
+--
+
+CREATE TABLE `adminkelas` (
+  `id` int(11) NOT NULL,
+  `siswaId` int(11) NOT NULL,
+  `kelasId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `adminkelas`
+--
+
+INSERT INTO `adminkelas` (`id`, `siswaId`, `kelasId`) VALUES
+(1, 10, 3);
 
 -- --------------------------------------------------------
 
@@ -109,7 +128,8 @@ CREATE TABLE `ejurnal` (
 --
 
 INSERT INTO `ejurnal` (`id`, `mengajar_id`, `tgl_jurnal`, `pembahasan`, `jml_hadir`, `jml_izin`, `jml_sakit`, `jml_alfa`) VALUES
-(27, 2, '2024-10-06', 'pertemuan pertama', 0, 0, 0, 1);
+(27, 2, '2024-10-06', 'pertemuan pertama', 0, 0, 0, 1),
+(30, 2, '2024-11-09', 'Coba dulu aja', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -209,7 +229,9 @@ INSERT INTO `logabsensi` (`id`, `mengajar_id`, `siswa_id`, `tgl_absen`, `pertemu
 (44, 2, 10, '2024-10-06', 1, 'A'),
 (45, 2, 13, '2024-10-27', 2, 'S'),
 (46, 2, 13, '2024-11-07', 3, 'H'),
-(47, 2, 13, '2024-10-06', 1, 'A');
+(47, 2, 13, '2024-10-06', 1, 'A'),
+(48, 2, 10, '2024-11-09', 4, 'A'),
+(49, 2, 13, '2024-11-09', 4, 'S');
 
 -- --------------------------------------------------------
 
@@ -248,7 +270,11 @@ INSERT INTO `logabsensiwalkel` (`id`, `siswa_id`, `kelas_id`, `tgl_absen`, `stat
 (27, 13, 3, '2024-10-16', 'A'),
 (28, 13, 3, '2024-10-23', 'I'),
 (29, 13, 3, '2024-10-30', 'A'),
-(30, 13, 3, '2024-11-07', 'H');
+(30, 13, 3, '2024-11-07', 'H'),
+(31, 10, 3, '2024-11-09', 'A'),
+(32, 13, 3, '2024-11-09', 'S'),
+(35, 10, 3, '2024-11-10', 'H'),
+(36, 13, 3, '2024-11-10', 'I');
 
 -- --------------------------------------------------------
 
@@ -268,7 +294,10 @@ CREATE TABLE `mapel` (
 
 INSERT INTO `mapel` (`id`, `kodeMapel`, `namaMapel`) VALUES
 (1, 'BINDO', 'Bahasa indonesia'),
-(3, 'BING', 'Bahasa Inggris');
+(3, 'BING', 'Bahasa Inggris'),
+(4, 'IPA', 'IPA'),
+(5, 'MTK', 'Matematika'),
+(6, 'ASJ', 'Administrasi Sistem Jaringan');
 
 -- --------------------------------------------------------
 
@@ -313,6 +342,28 @@ INSERT INTO `pkl` (`id`, `dudi_id`, `guru_id`, `siswa_id`, `jurusan`, `progres`,
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `sekolah`
+--
+
+CREATE TABLE `sekolah` (
+  `id` int(11) NOT NULL,
+  `namaSekolah` varchar(100) NOT NULL,
+  `alamatSekolah` varchar(100) NOT NULL,
+  `noTelp` varchar(20) NOT NULL,
+  `emailSekolah` varchar(20) NOT NULL,
+  `deskripsiSekolah` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `sekolah`
+--
+
+INSERT INTO `sekolah` (`id`, `namaSekolah`, `alamatSekolah`, `noTelp`, `emailSekolah`, `deskripsiSekolah`) VALUES
+(2, 'SMK DAKA', 'Karangpucung', '09327482', 'smkdkrpc@gmail.com', 'ini deskripsi');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `siswa`
 --
 
@@ -334,7 +385,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `user_id`, `kelas_id`, `nama`, `nis`, `alamat`, `hobi`, `tanggal_lahir`, `gambar`, `no_hp`) VALUES
-(10, 774, 3, 'aw', '18195012', 'Surusunda', 'Ga ada', '2003-01-24', '1726498253261_download (2).jpeg', '081548769465'),
+(10, 774, 3, 'aw', '18195012', 'Di rumah saja', 'Ngoding Aje', '2003-01-24', '1731165465911_18_Of_The_Sexiest_(Donghua)_Chinese_Anime_Male_Characters___Yu_Alexius.jpeg', '081548769465'),
 (12, 277, 1, 'Udin Saja', '181951223', 'Surusunda', 'Ga ada', '2003-01-24', 'default.jpg', '081548769465'),
 (13, 277, 3, 'Lucu banget', '181951223', 'Surusunda', 'Ga ada', '2003-01-24', 'default.jpg', '081548769465');
 
@@ -400,7 +451,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (4, '123459', '$2a$10$EgnNwC05vX7krQMsAFPXlejnbFR6X0Sx5fnQLsD.0FD7YLloFRhoG', 3),
 (277, '181951223', '$2a$10$L6PWOIsJMjZt7FqCr6nllO72MB0f3MTPYGj9v/QureOMSjMzq04Wi', 3),
 (774, '18195012', '$2y$10$lerJcFPFz5g.eJBTX2wBleEPEG32PqlfAqaEzb1.HPEZIuw1ZoIru', 3),
-(912, 'admin@gmail.com', '$2a$10$KQYFWAFT797Ie0mRT7oj9uzcCBBjwjriOrE9ywnfZivKttAGM7qnS', 1),
+(912, 'admin@gmail.com', '$2y$10$lerJcFPFz5g.eJBTX2wBleEPEG32PqlfAqaEzb1.HPEZIuw1ZoIru', 1),
 (987, 'staf@gmail.com', '$2a$10$AyR/QRlewCirNQDaqD8Y7.UEZUZKzxB/hcRNQpKvJlAKgKtSX4iFO', 4),
 (25327, 'kocak@gmail.com', '$2a$10$pLdB3wmDFTTyXQ6d2zKlTuKOrOSRrHwFexgXeH5cTqzNYwHc3geKW', 2),
 (73571, 'guru@gmail.com', '$2y$10$lerJcFPFz5g.eJBTX2wBleEPEG32PqlfAqaEzb1.HPEZIuw1ZoIru', 2);
@@ -471,6 +522,14 @@ INSERT INTO `walikelas` (`id`, `kelas_id`, `guru_id`) VALUES
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeks untuk tabel `adminkelas`
+--
+ALTER TABLE `adminkelas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kelasId` (`kelasId`),
+  ADD KEY `siswaId` (`siswaId`);
 
 --
 -- Indeks untuk tabel `datamengajar`
@@ -554,6 +613,12 @@ ALTER TABLE `pkl`
   ADD KEY `siswa_id` (`siswa_id`);
 
 --
+-- Indeks untuk tabel `sekolah`
+--
+ALTER TABLE `sekolah`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
@@ -614,6 +679,12 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT untuk tabel `adminkelas`
+--
+ALTER TABLE `adminkelas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `datamengajar`
 --
 ALTER TABLE `datamengajar`
@@ -629,7 +700,7 @@ ALTER TABLE `dudi`
 -- AUTO_INCREMENT untuk tabel `ejurnal`
 --
 ALTER TABLE `ejurnal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `gurus`
@@ -653,19 +724,19 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT untuk tabel `logabsensi`
 --
 ALTER TABLE `logabsensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT untuk tabel `logabsensiwalkel`
 --
 ALTER TABLE `logabsensiwalkel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengiriman_tugas`
@@ -678,6 +749,12 @@ ALTER TABLE `pengiriman_tugas`
 --
 ALTER TABLE `pkl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `sekolah`
+--
+ALTER TABLE `sekolah`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `siswa`
@@ -730,6 +807,13 @@ ALTER TABLE `walikelas`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `adminkelas`
+--
+ALTER TABLE `adminkelas`
+  ADD CONSTRAINT `adminkelas_ibfk_1` FOREIGN KEY (`kelasId`) REFERENCES `kelas` (`id`),
+  ADD CONSTRAINT `adminkelas_ibfk_2` FOREIGN KEY (`siswaId`) REFERENCES `siswa` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `datamengajar`
