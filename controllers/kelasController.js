@@ -18,9 +18,9 @@ const KelasController = {
         const data = req.body;
         Kelas.createKelas(data, (err, result) => {
             if (err) return res.status(500).json(err);
-            res.status(200).json({
+            res.status(201).json({
                 data: data,
-                status: 200,
+                status: 201,
                 message : "Class Successfully Added"
             })
         })
@@ -32,9 +32,9 @@ const KelasController = {
             if (err) return res.status(500).json(err);
             console.log(result);
             if (result.affectedRows > 0) {
-                  res.status(200).json({
+                  res.status(201).json({
                 data: data,
-                status: 200,
+                status: 201,
                 message : "Class Successfully Updated"
             })
             } else {
