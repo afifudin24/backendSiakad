@@ -20,6 +20,13 @@ const DataMengajar = {
       callback,
     );
   },
+  getKelasMengajarId: (guruId, mapelId, callback) => {
+    db.query(
+      `SELECT k.id, k.tingkat ,k.title,  CASE  WHEN dm.kelas_id IS NOT NULL THEN true ELSE false END AS status FROM kelas k LEFT JOIN datamengajar dm ON k.id = dm.kelas_id  AND dm.guru_id = ? AND dm.mapel_id = ?`,
+      [guruId, mapelId],
+      callback,
+    );
+  },
   create: (data, callback) => {
     db.query('INSERT INTO datamengajar SET ? ', [data], callback);
   },

@@ -101,6 +101,18 @@ const DataMengajarController = {
       return res.status(500).json(err);
     }
   },
+  getKelasDataMengajar: (req, res) => {
+    const { guruId, mapelId } = req.params;
+    console.log(req.params);
+    DataMengajar.getKelasMengajarId(guruId, mapelId, (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(200).json({
+        status: 200,
+        message: 'Successfully Get Kelas',
+        data: result,
+      });
+    });
+  },
   createDataMengajar: (req, res) => {
     const { guru_id, mapel_id, kelas_id } = req.body;
     const checkQuery = `

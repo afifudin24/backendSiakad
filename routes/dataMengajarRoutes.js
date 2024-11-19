@@ -8,6 +8,10 @@ router.get(
   '/getByGuruId/:guruId',
   DataMengajarController.getDataMengajarByGuruId,
 );
+router.get(
+  '/getKelasDataMengajar/:guruId/:mapelId',
+  DataMengajarController.getKelasDataMengajar,
+);
 router.post('/', DataMengajarController.createDataMengajar);
 router.put('/:id', DataMengajarController.updateDataMengajar);
 router.delete('/:id', DataMengajarController.deleteDataMengajar);

@@ -36,7 +36,10 @@ const SiswaController = {
 
   createSiswa: async (req, res) => {
     const data = req.body;
-
+    console.log(req.file);
+    if (req.file) {
+      data.gambar = req.file.filename; // Simpan nama file gambar yang diupload
+    }
     try {
       const userId = Math.floor(100 + Math.random() * 900);
       const hashedPassword = await bcrypt.hash(data.tanggal_lahir, 10);
@@ -57,8 +60,8 @@ const SiswaController = {
 
         Siswa.create(siswaData, (err, result) => {
           if (err) return res.status(500).json(err);
-          res.json({
-            response: res.status,
+          res.status(201).json({
+            status: 201,
             data: user,
             message: 'Siswa and User created successfully',
           });
@@ -112,15 +115,73 @@ const SiswaController = {
 
   deleteSiswa: (req, res) => {
     const { userId } = req.params;
+    Siswa.getById(userId, (err, siswa) => {
+      if (siswa[0].gambar !== 'default.jpeg') {
+        const oldImagePath = path.join(
+          __dirname,
+          '../uploads',
+          siswa[0].gambar,
+        );
 
-    Siswa.delete(userId, (err, result) => {
-      if (err) return res.status(500).json(err);
-      User.delete(userId, (err, result) => {
-        if (err) return res.status(500).json(err);
-        res.json({
-          message: 'Siswa deleted successfully',
-          status: 200,
+        fs.unlink(oldImagePath, (err) => {
+          if (err) console.error('Failed to delete old image:', err);
         });
+      }
+      if (err) return res.status(500).json({ err: err });
+      Siswa.delete(userId, (err, result) => {
+        if (err) return res.status(500).json(err);
+        User.delete(userId, (err, result) => {
+          if (err) return res.status(500).json(err);
+          res.json({
+            message: 'Siswa deleted successfully',
+            status: 200,
+          });
+        });
+      });
+    });
+  },
+
+  adminSiswa: (req, res) => {
+    Siswa.getAdminKelas((err, result) => {
+      if (err) return res.status(500).json(err);
+      res.json({
+        status: 200,
+        data: result,
+        message: 'Success Get Data Admin Kelas',
+      });
+    });
+  },
+  insertAdminKelas: (req, res) => {
+    const data = req.body;
+    Siswa.insertAdmin(data, (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(201).json({
+        status: 201,
+        data: result,
+        message: 'Success Insert Data',
+      });
+    });
+  },
+  updateAdminKelas: (req, res) => {
+    const data = req.body;
+    Siswa.updateAdmin(data, (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.json({
+        status: 200,
+        data: result,
+        message: 'Success Update Admin Kelas',
+      });
+    });
+  },
+  deleteAdminKelas: (req, res) => {
+    const { kelasId } = req.params;
+
+    Siswa.deleteAdminKelas(kelasId, (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.json({
+        status: 200,
+        data: result,
+        message: 'Success Delete Admin Kelas',
       });
     });
   },

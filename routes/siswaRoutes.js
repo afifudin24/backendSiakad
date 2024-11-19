@@ -7,13 +7,17 @@ const verifyToken = require('../middleware/verifyToken');
 router.get('/', verifyToken, SiswaController.getAllSiswa);
 router.get('/getByuserId/:userId', SiswaController.getSiswaById);
 router.get('/getByKelasId/:kelasId', SiswaController.getSiswaByKelasId);
-router.post('/', SiswaController.createSiswa);
+router.get('/getAdminSiswa', SiswaController.adminSiswa);
+router.post('/', uploadImages.single('gambar'), SiswaController.createSiswa);
 // router.put('/:userId',SiswaController.updateSiswa);
+router.post('/insertAdminKelas', SiswaController.insertAdminKelas);
 router.put(
-  '/:userId',
+  '/updateSiswa/:userId',
   uploadImages.single('gambar'),
   SiswaController.updateSiswa,
 );
-router.delete('/:userId', SiswaController.deleteSiswa);
+router.put('/updateAdminKelas', SiswaController.updateAdminKelas);
+router.delete('/deleteSiswa/:userId', SiswaController.deleteSiswa);
+router.delete('/deleteAdminKelas/:kelasId', SiswaController.deleteAdminKelas);
 
 module.exports = router;
