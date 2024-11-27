@@ -71,12 +71,13 @@ const GuruController = {
     });
   },
 
-  createGuru: async (req, res) => {
+  createGuru: (req, res) => {
     const data = req.body;
+    console.log(data);
 
     try {
       const userId = Math.floor(10000 + Math.random() * 90000);
-      const hashedPassword = await bcrypt.hash(data.tanggal_lahir, 10);
+      const hashedPassword = bcrypt.hash(data.tanggal_lahir, 10);
 
       const user = {
         id: userId,
@@ -118,7 +119,7 @@ const GuruController = {
     Guru.getById(id, (err, guru) => {
       if (err) return res.status(500).json({ err: err });
       // Hapus gambar lama jika ada dan jika file gambar baru diupload
-      console.log(guru[0].guru_gambar);
+      console.log(guru[0]);
       if (guru[0].guru_gambar !== 'default.jpeg' && req.file) {
         const oldImagePath = path.join(
           __dirname,
@@ -141,9 +142,9 @@ const GuruController = {
             data: data,
             err: err,
           });
-        res.status(201).json({
+        res.status(200).json({
           result: data,
-          status: 201,
+          status: 200,
           message: 'Guru updated successfully',
         });
       });
@@ -216,7 +217,7 @@ const GuruController = {
         },
         kelas: {
           id: row.kelas_id,
-          tingkat : row.kelas_tingkat,
+          tingkat: row.kelas_tingkat,
           nama: row.kelas_nama,
         },
       }));
@@ -225,11 +226,11 @@ const GuruController = {
     });
   },
 
-  getWakaKesiswaan : (req, res) => {
+  getWakaKesiswaan: (req, res) => {
     Guru.getKesiswaan((err, result) => {
       if (err) return res.status(500).json(err);
       res.json(result);
-    })
+    });
   },
 
   createWalikelas: (req, res) => {

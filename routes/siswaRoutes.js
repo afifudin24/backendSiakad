@@ -4,7 +4,7 @@ const router = express.Router();
 const { uploadImages, uploadPDFs } = require('../middleware/multerConfig');
 const verifyToken = require('../middleware/verifyToken');
 
-router.get('/', verifyToken, SiswaController.getAllSiswa);
+router.get('/', SiswaController.getAllSiswa);
 router.get('/getByuserId/:userId', SiswaController.getSiswaById);
 router.get('/getByKelasId/:kelasId', SiswaController.getSiswaByKelasId);
 router.get('/getAdminSiswa', SiswaController.adminSiswa);
