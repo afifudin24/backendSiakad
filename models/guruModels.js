@@ -2,7 +2,10 @@ const db = require('../db/config');
 
 const Guru = {
   getAll: (callback) => {
-    db.query('SELECT * FROM gurus', callback);
+    db.query(
+      'SELECT gurus.id, gurus.email, gurus.alamat, gurus.gambar, gurus.hobi, gurus.nama, gurus.no_telepon, gurus.tanggal_lahir, gurus.user_id, walikelas.id as walikelasId FROM gurus LEFT JOIN walikelas ON gurus.id = walikelas.guru_id',
+      callback,
+    );
   },
   getById: (id, callback) => {
     db.query(
@@ -22,7 +25,7 @@ const Guru = {
   },
   getWalikelas: (callback) => {
     db.query(
-      'SELECT wl.id AS walikelas_id, gr.id AS guru_id, gr.nama AS guru_nama, kl.id AS kelas_id, kl.title AS kelas_nama FROM walikelas wl JOIN gurus gr ON wl.guru_id = gr.id JOIN kelas kl ON wl.kelas_id = kl.id',
+      'SELECT wl.id AS walikelas_id, gr.id AS guru_id, gr.nama AS guru_nama, kl.id AS kelas_id, kl.title AS kelas_nama, kl.tingkat AS kelas_tingkat FROM walikelas wl JOIN gurus gr ON wl.guru_id = gr.id JOIN kelas kl ON wl.kelas_id = kl.id',
       callback,
     );
   },
@@ -48,6 +51,12 @@ const Guru = {
   },
   createWalikelas: (data, callback) => {
     db.query('INSERT INTO walikelas SET ? ', data, callback);
+  },
+  deleteWalikelas: (id, callback) => {
+    db.query('DELETE FROM walikelas where id = ?', [id], callback);
+  },
+  updateWalikelas: (id, data, callback) => {
+    db.query('UPDATE walikelas SET ? WHERE id = ?', [data, id], callback);
   },
 };
 

@@ -9,7 +9,29 @@ const GuruController = {
   getAllGuru: (req, res) => {
     Guru.getAll((err, results) => {
       if (err) return res.status(500).json(err);
-      res.json(results);
+      function formatDateAndAddOneDay(isoDateString) {
+        // Mengonversi string ISO ke objek Date
+        const dateObject = new Date(isoDateString);
+
+        // Menambahkan satu hari
+        dateObject.setDate(dateObject.getDate() + 1);
+
+        // Mengembalikan tanggal dalam format YYYY-MM-DD
+        return dateObject;
+      }
+      const formattedResults = results.map((row) => ({
+        id: row.id,
+        nama: row.nama,
+        tanggal_lahir: formatDateAndAddOneDay(row.tanggal_lahir),
+        user_id: row.user_id,
+        no_telepon: row.no_telepon,
+        gambar: row.gambar,
+        email: row.email,
+        hobi: row.hobi,
+        alamat: row.alamat,
+        walikelasId: row.walikelasId,
+      }));
+      res.json(formattedResults);
     });
   },
 
@@ -176,6 +198,7 @@ const GuruController = {
         kelas: {
           id: row.kelas_id,
           nama: row.kelas_nama,
+          tingkat: row.kelas_tingkat,
         },
       }));
       // Kirim hasil JSON
@@ -244,7 +267,7 @@ const GuruController = {
       if (results.length > 0) {
         return res.status(400).json({
           status: 400,
-          message: 'Walikelas already exists',
+          message: 'Walikelas Sudah Ada',
           existingData: results,
         });
       } else {
@@ -255,17 +278,40 @@ const GuruController = {
             res.status(200).json({
               data: data,
               status: 200,
-              message: 'Walikelas Added',
+              message: 'Walikelas Berhasil Ditambahkan',
             });
           } else {
             res.status(400).json({
               data: data,
               status: 400,
-              message: 'Walikelas Not Added',
+              message: 'Walikelas Gagal Ditambahkan',
             });
           }
         });
       }
+    });
+  },
+  deleteWalikelas: (req, res) => {
+    const { id } = req.params;
+    Guru.deleteWalikelas(id, (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: 'Berhasil Menghapus Walikelas',
+      });
+    });
+  },
+  UpdateWalikelas: (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    Guru.updateWalikelas(id, data, (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: 'Berhasil Update Walikelas',
+      });
     });
   },
 };
