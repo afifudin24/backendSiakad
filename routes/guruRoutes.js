@@ -10,6 +10,8 @@ const checkRole = require('../middleware/checkRole');
 router.get('/', GuruController.getAllGuru);
 router.get('/:user_id', GuruController.getGuruById);
 router.post('/', uploadImages.single('gambar'), GuruController.createGuru);
+router.post('/setWakakesiswaan', GuruController.setWakakesiswaan);
+router.post('/setWakakurikulum', GuruController.setWakakurikulum);
 router.put('/:id', uploadImages.single('gambar'), GuruController.updateGuru);
 router.delete('/:id', GuruController.deleteGuru);
 

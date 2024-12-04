@@ -88,7 +88,7 @@ const DataMengajarController = {
             id: row.mapel_id,
             nama: row.mapel_nama,
           },
-        }));ai
+        }));
         // Kirim hasil dalam format JSON
         res.status(200).json({
           status: 200,

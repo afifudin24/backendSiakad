@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Nov 2024 pada 13.01
--- Versi server: 10.4.11-MariaDB
+-- Waktu pembuatan: 04 Des 2024 pada 05.33
+-- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
   `tanggal_lahir` varchar(30) NOT NULL,
   `alamat` varchar(30) NOT NULL,
   `gambar` varchar(40) NOT NULL DEFAULT 'default.jpeg'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `admin`
@@ -54,7 +54,7 @@ CREATE TABLE `adminkelas` (
   `id` int(11) NOT NULL,
   `siswaId` int(11) NOT NULL,
   `kelasId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `adminkelas`
@@ -74,7 +74,7 @@ CREATE TABLE `datamengajar` (
   `guru_id` int(11) NOT NULL,
   `mapel_id` int(11) NOT NULL,
   `kelas_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `datamengajar`
@@ -97,7 +97,7 @@ CREATE TABLE `dudi` (
   `alamat` text DEFAULT NULL,
   `kontak` varchar(50) DEFAULT NULL,
   `jurusan` enum('TKJ','TKR','AKL','PM','TSM') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `dudi`
@@ -122,7 +122,7 @@ CREATE TABLE `ejurnal` (
   `jml_izin` int(11) DEFAULT 0,
   `jml_sakit` int(11) DEFAULT 0,
   `jml_alfa` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `ejurnal`
@@ -148,7 +148,7 @@ CREATE TABLE `gurus` (
   `hobi` varchar(30) NOT NULL,
   `no_telepon` varchar(20) NOT NULL,
   `gambar` varchar(255) DEFAULT 'default.jpg'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `gurus`
@@ -159,7 +159,6 @@ INSERT INTO `gurus` (`id`, `user_id`, `email`, `nama`, `tanggal_lahir`, `alamat`
 (3, 3, 'muhammad.fauzi@examp', 'Muhammad Fauzid', '1978-11-29', 'Jl. Kenanga No. 5, Surabaya', '', '081234567892', '1732714953551_download.jpeg'),
 (8, 25327, 'afif@gmail.com', 'Afif Waliyudin', '2003-01-24', 'Surusunda', 'Ngoding', '081548769365', '1728115936802_aing.jpg'),
 (9, 73571, 'guru@gmail.com', 'Afif  Udin', '2003-01-19', 'Surusunda', 'Mancing Bos', '081548769365', '1732713020142_wp9737534-btth-wallpapers.jpg'),
-(10, 24072, 'guru@gmail.com', 'Afif Udin', '2003-01-24', 'Surusunda', '', '081548769365', 'default.jpg'),
 (12, 83140, 'gurubaru@gmail.com', 'Gurubaru', '2024-11-04', 'Ini adalah desa', 'Tidak ada hobi', '', 'default.jpg');
 
 -- --------------------------------------------------------
@@ -175,7 +174,7 @@ CREATE TABLE `jadwalmengajar` (
   `hari` varchar(20) NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `jadwalmengajar`
@@ -197,7 +196,7 @@ CREATE TABLE `kelas` (
   `id` int(11) NOT NULL,
   `title` varchar(20) NOT NULL,
   `tingkat` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `kelas`
@@ -221,7 +220,7 @@ CREATE TABLE `logabsensi` (
   `tgl_absen` date NOT NULL,
   `pertemuan_ke` int(11) NOT NULL,
   `status_absensi` enum('H','I','S','A') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `logabsensi`
@@ -243,7 +242,7 @@ CREATE TABLE `logabsensiwalkel` (
   `kelas_id` int(11) NOT NULL,
   `tgl_absen` date NOT NULL,
   `status_absen` enum('H','A','I','S') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `logabsensiwalkel`
@@ -269,7 +268,7 @@ CREATE TABLE `mapel` (
   `id` int(11) NOT NULL,
   `kodeMapel` varchar(20) NOT NULL,
   `namaMapel` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `mapel`
@@ -295,7 +294,7 @@ CREATE TABLE `pengiriman_tugas` (
   `tanggal_pengumpulan` datetime NOT NULL DEFAULT current_timestamp(),
   `file` varchar(255) NOT NULL,
   `status` enum('submitted','late') DEFAULT 'submitted'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -310,7 +309,7 @@ CREATE TABLE `sekolah` (
   `noTelp` varchar(20) NOT NULL,
   `emailSekolah` varchar(20) NOT NULL,
   `deskripsiSekolah` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `sekolah`
@@ -336,7 +335,7 @@ CREATE TABLE `siswa` (
   `tanggal_lahir` date DEFAULT NULL,
   `gambar` varchar(255) DEFAULT 'default.jpg',
   `no_hp` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `siswa`
@@ -361,7 +360,7 @@ CREATE TABLE `stafpembayaran` (
   `tanggal_lahir` date NOT NULL,
   `alamat` varchar(30) NOT NULL,
   `gambar` varchar(40) NOT NULL DEFAULT 'default.jpg'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -376,7 +375,7 @@ CREATE TABLE `tugas_kelas` (
   `deskripsi` text DEFAULT NULL,
   `tanggal_dibuat` datetime DEFAULT current_timestamp(),
   `tanggal_deadline` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `tugas_kelas`
@@ -396,7 +395,7 @@ CREATE TABLE `users` (
   `username` varchar(20) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
@@ -412,17 +411,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (912, 'admin@gmail.com', '$2y$10$lerJcFPFz5g.eJBTX2wBleEPEG32PqlfAqaEzb1.HPEZIuw1ZoIru', 1),
 (925, '31243', '$2a$10$PwuBGJwm7USK7EWnkWyDyuL6g1dmRfOo8nPvawA6wV/IeTqvcNP4y', 3),
 (987, 'staf@gmail.com', '$2a$10$AyR/QRlewCirNQDaqD8Y7.UEZUZKzxB/hcRNQpKvJlAKgKtSX4iFO', 4),
-(16528, NULL, '[object Promise]', 2),
-(21985, NULL, '[object Promise]', 2),
-(24072, 'guru@gmail.com', '[object Promise]', 2),
 (25327, 'kocak@gmail.com', '$2a$10$pLdB3wmDFTTyXQ6d2zKlTuKOrOSRrHwFexgXeH5cTqzNYwHc3geKW', 2),
-(39296, NULL, '[object Promise]', 2),
 (42750, 'dsf@gmail.com', '[object Promise]', 2),
-(44784, NULL, '[object Promise]', 2),
-(57302, NULL, '[object Promise]', 2),
-(61908, NULL, '[object Promise]', 2),
-(63960, NULL, '[object Promise]', 2),
-(73571, 'guru@gmail.com', '$2y$10$lerJcFPFz5g.eJBTX2wBleEPEG32PqlfAqaEzb1.HPEZIuw1ZoIru', 2),
+(73571, 'guru@gmail.com', '$2y$10$CMyOUD5smVucSGEPNtTwGOhBg8Nfs/.zzE0qrB/Fx7cc.zNNxX06W', 2),
 (83140, 'gurubaru@gmail.com', '[object Promise]', 2);
 
 -- --------------------------------------------------------
@@ -434,14 +425,14 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 CREATE TABLE `wakakesiswaan` (
   `id` int(11) NOT NULL,
   `guruId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `wakakesiswaan`
 --
 
 INSERT INTO `wakakesiswaan` (`id`, `guruId`) VALUES
-(1, 9);
+(3, 9);
 
 -- --------------------------------------------------------
 
@@ -452,7 +443,7 @@ INSERT INTO `wakakesiswaan` (`id`, `guruId`) VALUES
 CREATE TABLE `wakakurikulum` (
   `id` int(11) NOT NULL,
   `guru_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `wakakurikulum`
@@ -471,7 +462,7 @@ CREATE TABLE `walikelas` (
   `id` int(11) NOT NULL,
   `kelas_id` int(5) NOT NULL,
   `guru_id` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `walikelas`
@@ -479,7 +470,7 @@ CREATE TABLE `walikelas` (
 
 INSERT INTO `walikelas` (`id`, `kelas_id`, `guru_id`) VALUES
 (1, 1, 8),
-(3, 3, 10);
+(3, 3, 9);
 
 --
 -- Indexes for dumped tables
@@ -738,7 +729,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `wakakesiswaan`
 --
 ALTER TABLE `wakakesiswaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `wakakurikulum`

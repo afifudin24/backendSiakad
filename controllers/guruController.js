@@ -30,6 +30,8 @@ const GuruController = {
         hobi: row.hobi,
         alamat: row.alamat,
         walikelasId: row.walikelasId,
+        wakakurikulumId : row.wakakurikulumId,
+        wakakesiswaanId : row.wakakesiswaanId
       }));
       res.json(formattedResults);
     });
@@ -314,6 +316,61 @@ const GuruController = {
       });
     });
   },
+  setWakakesiswaan : (req, res) => {
+    // const 
+    console.log(req.body);
+    const guruId = req.body.id;
+    Guru.cekWakaKesiswaan((err, result) => {
+      console.log(result);
+      if(result[0].total > 0){
+        Guru.updateWakakesiswaan(guruId, (err, result) => {
+          if (err) return res.status(500).json(err);
+          res.status(200).json({
+            status: 200,
+            data: result,
+            message: 'Berhasil Update Waka Kesiswaan',
+          });
+        })
+      }else{
+        Guru.insertWakakesiswaan(guruId, (err, result) => {
+          if (err) return res.status(500).json(err);
+          res.status(200).json({
+            status: 200,
+            data: result,
+            message: 'Berhasil Tambah Waka Kesiswaan',
+          });
+        })
+      }
+
+    })
+  },
+  setWakakurikulum : (req, res) => {
+  
+    const guruId = req.body.id;
+    Guru.cekWakaKurikulum((err, result) => {
+      console.log(result);
+      if(result[0].total > 0){
+        Guru.updateWakakurikulum(guruId, (err, result) => {
+          if (err) return res.status(500).json(err);
+          res.status(200).json({
+            status: 200,
+            data: result,
+            message: 'Berhasil Update Waka Kurikulum',
+          });
+        })
+      }else{
+        Guru.insertWakakurikulum(guruId, (err, result) => {
+          if (err) return res.status(500).json(err);
+          res.status(200).json({
+            status: 200,
+            data: result,
+            message: 'Berhasil Tambah Waka Kurikulum',
+          });
+        })
+      }
+
+    })
+  }
 };
 
 module.exports = GuruController;

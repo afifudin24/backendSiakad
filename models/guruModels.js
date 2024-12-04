@@ -3,7 +3,7 @@ const db = require('../db/config');
 const Guru = {
   getAll: (callback) => {
     db.query(
-      'SELECT gurus.id, gurus.email, gurus.alamat, gurus.gambar, gurus.hobi, gurus.nama, gurus.no_telepon, gurus.tanggal_lahir, gurus.user_id, walikelas.id as walikelasId FROM gurus LEFT JOIN walikelas ON gurus.id = walikelas.guru_id',
+      'SELECT gurus.id, gurus.email, gurus.alamat, gurus.gambar, gurus.hobi, gurus.nama, gurus.no_telepon, gurus.tanggal_lahir, gurus.user_id, walikelas.id as walikelasId, wakakurikulum.id as wakakurikulumId, wakakesiswaan.id as wakakesiswaanId   FROM gurus LEFT JOIN walikelas ON gurus.id = walikelas.guru_id LEFT JOIN wakakurikulum ON gurus.id = wakakurikulum.guru_id LEFT JOIN wakakesiswaan ON gurus.id = wakakesiswaan.guruId',
       callback,
     );
   },
@@ -57,6 +57,24 @@ const Guru = {
   },
   updateWalikelas: (id, data, callback) => {
     db.query('UPDATE walikelas SET ? WHERE id = ?', [data, id], callback);
+  },
+  cekWakaKesiswaan : (callback) => {
+    db.query('SELECT COUNT(*) as total FROM wakakesiswaan', callback);
+  },
+  insertWakakesiswaan : (id, callback) => {
+    db.query('INSERT into wakakesiswaan (guruId) VALUES (?)', [id], callback);
+  },
+  updateWakakesiswaan : (id, callback) => {
+    db.query('UPDATE wakakesiswaan SET guruId = ?', [id], callback);
+  },
+  cekWakaKurikulum : (callback) => {
+    db.query('SELECT COUNT(*) as total FROM wakakurikulum', callback);
+  },
+  insertWakakurikulum : (id, callback) => {
+    db.query('INSERT into wakakurikulum (guru_id) VALUES (?)', [id], callback);
+  },
+  updateWakakurikulum : (id, callback) => {
+    db.query('UPDATE wakakurikulum SET guru_id = ?', [id], callback);
   },
 };
 
