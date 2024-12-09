@@ -1,25 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const LogAbsensiController = require('../controllers/logAbsensiController');
-const LogAbsensi = require('../models/logAbsensiModels');
 
 router.get(
   '/getlastabsensi/:mengajarId/:date',
-  LogAbsensiController.getLastAbsensi,
+  LogAbsensiController.getLastAbsensi
 );
 router.get(
   '/getByMengajarIdMonth/:mengajarId/:month',
-  LogAbsensiController.getByMengajarIdMonth,
+  LogAbsensiController.getByMengajarIdMonth
 );
 router.get(
   '/getByMengajarIdDate/:mengajarId/:date',
-  LogAbsensiController.getByMengajarIdDate,
+  LogAbsensiController.getByMengajarIdDate
 );
 router.get(
-  '/getByMengajarIdDate/:mengajarId/:date',
-  LogAbsensiController.getByMengajarIdDate,
+  '/getByMengajarIdSiswaDate/:mengajarId/:date/:siswaId',
+  LogAbsensiController.getByMengajarIdSiswaDate
 );
 
 router.post('/', LogAbsensiController.insertAbsensi);
 router.put('/update', LogAbsensiController.updateAbsensi);
+
 module.exports = router;

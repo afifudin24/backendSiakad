@@ -26,6 +26,14 @@ const LogAbsensi = {
       callback,
     );
   },
+  getByMengajarIdSiswaDate: (mengajarId, date, siswaId, callback) => {
+    console.log(mengajarId, date);
+    db.query(
+      `SELECT la.id AS logabsensi_id, la.tgl_absen, la.pertemuan_ke, la.status_absensi, dm.id AS mengajar_id, m.namaMapel AS nama_mapel, k.title AS nama_kelas, k.tingkat AS tingkat_kelas, g.id AS guru_id, g.nama AS nama_guru, s.id AS siswa_id, s.nama AS nama_siswa FROM  logabsensi la INNER JOIN  datamengajar dm ON la.mengajar_id = dm.id INNER JOIN  mapel m ON dm.mapel_id = m.id INNER JOIN  kelas k ON dm.kelas_id = k.id INNER JOIN  gurus g ON dm.guru_id = g.id INNER JOIN  siswa s ON la.siswa_id = s.id WHERE  la.mengajar_id = ? AND la.tgl_absen = ? AND la.siswa_id = ?` ,
+      [mengajarId, date, siswaId],
+      callback,
+    );
+  },
   insertAbsensi: (data, callback) => {
     const values = data.map((item) => [
       item.mengajar_id,

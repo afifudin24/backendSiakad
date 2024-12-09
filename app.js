@@ -21,9 +21,8 @@ const pengirimanTugasRoutes = require('./routes/pengirimanTugasRoutes');
 const ejurnalRoutes = require('./routes/ejurnalRoutes');
 const logAbsensiRoutes = require('./routes/logAbsensiRoutes');
 const logAbsensiWalkelRoutes = require('./routes/logAbsensiWalkelRoutes');
-const dudiRoutes = require('./routes/dudiRoutes');
-const pklRoutes = require('./routes/pklRoutes');
 const sekolahRoutes = require('./routes/sekolahRoutes');
+const validasiMengajarRoutes = require('./routes/validasiMengajarRoutes');
 const PORT = 8000;
 
 // Gunakan middleware CORS
@@ -59,9 +58,8 @@ app.use('/api/pengirimantugas', pengirimanTugasRoutes);
 app.use('/api/ejurnal', ejurnalRoutes);
 app.use('/api/logabsensi', logAbsensiRoutes);
 app.use('/api/logabsensiwalkel', logAbsensiWalkelRoutes);
-app.use('/api/dudi', dudiRoutes);
-app.use('/api/pkl', pklRoutes);
 app.use('/api/sekolah', sekolahRoutes);
+app.use('/api/validasimengajar', validasiMengajarRoutes);
 
 // Route Static
 app.use('/uploads', express.static('uploads'));
