@@ -14,6 +14,17 @@ const ValidasiMengajarController = {
             })
         })
     },
+    getValidasiMengajarByMengajarId : (req, res) => {
+      const {mengajarId} = req.params;
+      ValidasiMengajar.getValidasiMengajarByMengajarId(mengajarId, (err, result) =>{
+        if (err) return res.status(500).json(err);
+        console.log(result);
+        res.status(200).json({
+          data : result,
+          message : "Success Get Data"
+        })
+      })
+    },
     insertValidasiMengajar : (req, res) => {
         const data = req.body;
         ValidasiMengajar.insertValidasi(data, (err, result) => {

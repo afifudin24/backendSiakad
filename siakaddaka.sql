@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 09, 2024 at 09:41 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- Generation Time: Dec 19, 2024 at 09:20 AM
+-- Server version: 10.11.6-MariaDB-0+deb12u1
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -133,7 +133,8 @@ INSERT INTO `ejurnal` (`id`, `mengajar_id`, `tgl_jurnal`, `pembahasan`, `jml_had
 (30, 2, '2024-11-09', 'Coba dulu aja', 0, 0, 0, 1),
 (31, 2, '2024-12-07', 'Coba saja', 1, 0, 0, 0),
 (32, 2, '2024-12-08', 'Coba aja', 1, 0, 0, 0),
-(33, 2, '2024-12-09', 'tes aja', 1, 0, 0, 0);
+(33, 2, '2024-12-09', 'tes aja', 1, 0, 0, 0),
+(34, 2, '2024-12-18', 'Tes aja', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -184,8 +185,8 @@ CREATE TABLE `jadwalmengajar` (
 --
 
 INSERT INTO `jadwalmengajar` (`id`, `mengajar_id`, `jamke`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(3, 1, '3 - 4', 'Sabtu', '08:20:00', '15:00:00'),
-(4, 2, '3 - 4', 'Minggu', '07:20:00', '10:00:00'),
+(3, 1, '3 - 4', 'Rabu', '08:20:00', '10:00:00'),
+(4, 2, '3 - 4', 'Rabu', '14:20:00', '16:00:00'),
 (5, 1, '1 - 2', 'Jum\'at', '07:00:00', '15:20:00'),
 (6, 2, '3 - 4', 'Minggu', '13:20:00', '15:00:00');
 
@@ -234,7 +235,8 @@ INSERT INTO `logabsensi` (`id`, `mengajar_id`, `siswa_id`, `tgl_absen`, `pertemu
 (48, 2, 10, '2024-11-09', 4, 'A'),
 (50, 2, 10, '2024-12-07', 5, 'H'),
 (51, 2, 10, '2024-12-08', 6, 'H'),
-(52, 2, 10, '2024-12-09', 7, 'H');
+(52, 2, 10, '2024-12-09', 7, 'H'),
+(53, 2, 10, '2024-12-18', 8, 'H');
 
 -- --------------------------------------------------------
 
@@ -262,7 +264,8 @@ INSERT INTO `logabsensiwalkel` (`id`, `siswa_id`, `kelas_id`, `tgl_absen`, `stat
 (17, 10, 1, '2024-09-29', 'A'),
 (19, 10, 1, '2024-10-02', 'I'),
 (31, 10, 3, '2024-11-09', 'A'),
-(35, 10, 3, '2024-11-10', 'H');
+(35, 10, 3, '2024-11-10', 'H'),
+(37, 10, 3, '2024-12-18', 'H');
 
 -- --------------------------------------------------------
 
@@ -446,8 +449,7 @@ CREATE TABLE `validasimengajar` (
 INSERT INTO `validasimengajar` (`id`, `guruId`, `siswaId`, `ejurnalId`, `mengajarId`, `statusHadir`, `materiSesuai`, `prosesPengajaran`) VALUES
 (1, 9, 27, 32, 5, 'Hadir', 'Sesuai', 'Baik'),
 (5, 9, 10, 32, 2, 'Hadir', 'Sesuai', 'Baik'),
-(6, 9, 10, 31, 2, 'Hadir', 'Sesuai', 'Baik'),
-(7, 9, 10, 33, 2, 'Hadir', 'Tidak Sesuai', 'Cukup Baik');
+(6, 9, 10, 31, 2, 'Hadir', 'Sesuai', 'Baik');
 
 -- --------------------------------------------------------
 
@@ -694,7 +696,7 @@ ALTER TABLE `dudi`
 -- AUTO_INCREMENT for table `ejurnal`
 --
 ALTER TABLE `ejurnal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `gurus`
@@ -718,13 +720,13 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `logabsensi`
 --
 ALTER TABLE `logabsensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `logabsensiwalkel`
 --
 ALTER TABLE `logabsensiwalkel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `mapel`

@@ -8,6 +8,9 @@ const ValidasiMengajar = {
       callback
     )
   },
+  getValidasiMengajarByMengajarId : (mengajarId,callback) => {
+    db.query(`SELECT mengajarId, ROUND(SUM(CASE WHEN statusHadir = 'Hadir' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS persenHadir,  ROUND(SUM(CASE WHEN statusHadir = 'Tidak Hadir' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS persenTidakHadir, ROUND(SUM(CASE WHEN materiSesuai = 'Sesuai' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS persenMateriSesuai, ROUND(SUM(CASE WHEN materiSesuai = 'Tidak Sesuai' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS persenTidakSesuai,ROUND(SUM(CASE WHEN prosesPengajaran = 'Baik' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS persenBaik, ROUND(SUM(CASE WHEN prosesPengajaran = 'Cukup Baik' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS persenCukupBaik, ROUND(SUM(CASE WHEN prosesPengajaran = 'Kurang Baik' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS persenKurangBaik FROM validasimengajar WHERE mengajarId = ? GROUP BY mengajarId`,[mengajarId],callback)
+  },
   insertValidasi: (data, callback) => {
     db.query(`INSERT INTO validasimengajar SET ?`, data, callback)
   },
