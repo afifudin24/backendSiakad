@@ -5,6 +5,7 @@ const ValidasiMengajar = {
     db.query(
       `SELECT * FROM validasimengajar WHERE ejurnalId = ? AND siswaId = ?`,
       [jurnalId, siswaId],
+      
       callback
     )
   },
