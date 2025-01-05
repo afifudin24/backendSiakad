@@ -185,6 +185,7 @@ const JadwalMengajarController = {
     console.log(req.params);
     try {
       JadwalMengajar.getJadwalMengajarByGuruIdHari(id, hari, (err, result) => {
+        console.log(err);
         if (err) return res.status(500).json(err);
         const formattedResults = result.map((row) => ({
           id: row.jadwal_id,
@@ -243,9 +244,11 @@ const JadwalMengajarController = {
   updateJadwalMengajar: (req, res) => {
     const { id } = req.params;
     const data = req.body;
+    console.log('ini id', id);
     try {
       JadwalMengajar.updateJadwal(id, data, (err, result) => {
         if (err) return res.status(500).json(err);
+        console.log(result);
         res.status(201).json({
           status: 201,
           message: 'Succecssfully Updated Jadwal Mengajar',
@@ -257,6 +260,7 @@ const JadwalMengajarController = {
   },
   deleteJadwalMengajar: (req, res) => {
     const { id } = req.params;
+    console.log(id);
     try {
       JadwalMengajar.deleteJadwal(id, (err, result) => {
         if (err) return res.status(500).json(err);
@@ -268,6 +272,20 @@ const JadwalMengajarController = {
     } catch (err) {
       return res.status(500).json(err);
     }
+  },
+  insertGenerateJadwal: (req, res) => {
+    const data = req.body;
+    JadwalMengajar.deleteAllJadwal((err, result) => {
+      if (err) return res.status(500).json(err);
+      JadwalMengajar.insertGenerateJadwal(data, (err, result) => {
+        if (err) return res.status(500).json(err);
+        return res.json({
+          data: result,
+          message: 'Success Insert Generate Jadwal',
+          status: 201,
+        });
+      });
+    });
   },
 };
 
