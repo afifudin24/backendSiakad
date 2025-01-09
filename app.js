@@ -24,6 +24,7 @@ const logAbsensiWalkelRoutes = require('./routes/logAbsensiWalkelRoutes')
 const sekolahRoutes = require('./routes/sekolahRoutes')
 const validasiMengajarRoutes = require('./routes/validasiMengajarRoutes')
 const scheduleRoutes = require('./routes/scheduleRoutes')
+const reopenJurnalRoutes = require('./routes/reopenRoutes')
 const PORT = 8000
 
 // Gunakan middleware CORS
@@ -62,6 +63,7 @@ app.use('/api/logabsensiwalkel', logAbsensiWalkelRoutes)
 app.use('/api/sekolah', sekolahRoutes)
 app.use('/api/validasimengajar', validasiMengajarRoutes)
 app.use('/api/schedule', scheduleRoutes)
+app.use('/api/reopenJurnal', reopenJurnalRoutes)
 
 // Route Static
 app.use('/uploads', express.static('uploads'))
