@@ -25,6 +25,7 @@ const sekolahRoutes = require('./routes/sekolahRoutes')
 const validasiMengajarRoutes = require('./routes/validasiMengajarRoutes')
 const scheduleRoutes = require('./routes/scheduleRoutes')
 const reopenJurnalRoutes = require('./routes/reopenRoutes')
+const logRoutes = require('./routes/logRoutes')
 const PORT = 8000
 
 // Gunakan middleware CORS
@@ -64,6 +65,7 @@ app.use('/api/sekolah', sekolahRoutes)
 app.use('/api/validasimengajar', validasiMengajarRoutes)
 app.use('/api/schedule', scheduleRoutes)
 app.use('/api/reopenJurnal', reopenJurnalRoutes)
+app.use('/api/log', logRoutes)
 
 // Route Static
 app.use('/uploads', express.static('uploads'))
